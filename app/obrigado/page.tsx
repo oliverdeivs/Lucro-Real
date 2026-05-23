@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { setPremium } from '@/lib/storage'
+import { useTranslation } from '@/lib/i18n'
 
 export default function ObrigadoPage() {
+  const { t } = useTranslation()
   const router = useRouter()
   const [countdown, setCountdown] = useState(5)
 
@@ -31,23 +33,22 @@ export default function ObrigadoPage() {
       </div>
 
       <h1 className="text-3xl font-black text-gray-900 mb-3">
-        Compra Confirmada! 🎉
+        {t('obrigado.title')}
       </h1>
 
       <p className="text-gray-500 mb-4">
-        Seu acesso ao LucroReal foi liberado com sucesso.
-        Você já pode usar todas as funcionalidades premium.
+        {t('obrigado.desc')}
       </p>
 
       <div className="text-sm text-gray-400 mb-8">
-        Redirecionando para seu dashboard em <span className="font-bold text-brand-600">{countdown}</span> segundos...
+        {t('obrigado.redirect', { countdown })}
       </div>
 
       <button
         onClick={() => router.push('/dashboard')}
         className="px-8 py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:from-brand-700 hover:to-brand-600 transition-all shadow-lg shadow-brand-200"
       >
-        Ir para o Dashboard Agora
+        {t('obrigado.cta')}
       </button>
     </div>
   )

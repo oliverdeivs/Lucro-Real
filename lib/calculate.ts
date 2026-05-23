@@ -1,4 +1,5 @@
 import { Ride, RideStatus } from './types'
+import { Locale, localeConfig } from './i18n'
 
 export interface CalcInput {
   amount: number
@@ -40,6 +41,7 @@ export function calculateProfit(input: CalcInput): CalcResult {
   return { profit, costPerKm, totalCost, status, percentage, score }
 }
 
-export function formatCurrency(value: number): string {
-  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+export function formatCurrency(value: number, locale: Locale = 'pt'): string {
+  const cfg = localeConfig[locale]
+  return value.toLocaleString(cfg.locale, { style: 'currency', currency: cfg.currency })
 }

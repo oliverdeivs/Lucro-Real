@@ -3,10 +3,23 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
+import { useTranslation, localeConfig, Locale, locales } from '@/lib/i18n'
 
 export default function Header() {
+  const { t, locale, setLocale } = useTranslation()
   const path = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const isHome = path === '/'
+
+  const toggleLang = () => {
+    const idx = locales.indexOf(locale)
+    const next = locales[(idx + 1) % locales.length] as Locale
+    setLocale(next)
+  }
+
+  const cfg = localeConfig[locale]
+
+  if (isHome) return null
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/80">
@@ -25,7 +38,7 @@ export default function Header() {
               path === '/' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
             }`}
           >
-            Calculadora
+            {t('nav.calculadora')}
           </Link>
           <Link
             href="/dashboard"
@@ -33,13 +46,20 @@ export default function Header() {
               path === '/dashboard' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
             }`}
           >
-            Dashboard
+            {t('nav.dashboard')}
           </Link>
-          <a
-            href="#preco"
-            className="ml-3 px-5 py-2 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl hover:from-brand-700 hover:to-emerald-600 transition-all shadow-lg shadow-brand-200/40"
+          <button
+            onClick={toggleLang}
+            className="ml-2 px-3 py-2 text-xs font-bold text-gray-400 hover:text-brand-600 border border-gray-200 rounded-xl hover:border-brand-300 transition-all uppercase tracking-wider"
+            title={`Switch to ${locale === 'pt' ? 'Español' : 'Português'}`}
           >
-            Comprar R$37
+            {locale === 'pt' ? 'ES' : 'PT'}
+          </button>
+          <a
+            href="/#preco"
+            className="ml-2 px-5 py-2 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl hover:from-brand-700 hover:to-emerald-600 transition-all shadow-lg shadow-brand-200/40"
+          >
+            {t('nav.comprar', { price: `${cfg.symbol}37` })}
           </a>
         </nav>
 
@@ -66,7 +86,7 @@ export default function Header() {
               path === '/' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:bg-gray-50'
             }`}
           >
-            Calculadora
+            {t('nav.calculadora')}
           </Link>
           <Link
             href="/dashboard"
@@ -75,14 +95,20 @@ export default function Header() {
               path === '/dashboard' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:bg-gray-50'
             }`}
           >
-            Dashboard
+            {t('nav.dashboard')}
           </Link>
+          <button
+            onClick={() => { toggleLang(); setMobileOpen(false) }}
+            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-xl text-center uppercase tracking-wider"
+          >
+            {locale === 'pt' ? '🇲🇽 Español' : '🇧🇷 Português'}
+          </button>
           <a
-            href="#preco"
+            href="/#preco"
             onClick={() => setMobileOpen(false)}
             className="block px-4 py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl text-center"
           >
-            Comprar R$37
+            {t('nav.comprar', { price: `${cfg.symbol}37` })}
           </a>
         </div>
       )}

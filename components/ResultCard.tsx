@@ -1,6 +1,7 @@
 'use client'
 
 import { CalcResult, formatCurrency } from '@/lib/calculate'
+import { useTranslation } from '@/lib/i18n'
 
 interface Props {
   result: CalcResult
@@ -8,45 +9,50 @@ interface Props {
   saved?: boolean
 }
 
-const scoreConfig = {
-  A: { label: 'Excelente', color: 'text-profit', bg: 'bg-profit/10', border: 'border-profit/30' },
-  B: { label: 'Boa', color: 'text-profit', bg: 'bg-profit/10', border: 'border-profit/30' },
-  C: { label: 'Razoável', color: 'text-warning', bg: 'bg-warning/10', border: 'border-warning/30' },
-  D: { label: 'Baixa', color: 'text-warning', bg: 'bg-warning/10', border: 'border-warning/30' },
-  F: { label: 'Prejuízo', color: 'text-loss', bg: 'bg-loss/10', border: 'border-loss/30' },
-}
-
 export default function ResultCard({ result, onSave, saved }: Props) {
-  const cfg = scoreConfig[result.score as keyof typeof scoreConfig] || scoreConfig.D
+  const { t, locale } = useTranslation()
   const isPositive = result.profit >= 0
+
+  const scoreStyle: Record<string, { color: string; bg: string; border: string }> = {
+    A: { color: 'text-profit', bg: 'bg-profit/10', border: 'border-profit/30' },
+    B: { color: 'text-profit', bg: 'bg-profit/10', border: 'border-profit/30' },
+    C: { color: 'text-warning', bg: 'bg-warning/10', border: 'border-warning/30' },
+    D: { color: 'text-warning', bg: 'bg-warning/10', border: 'border-warning/30' },
+    F: { color: 'text-loss', bg: 'bg-loss/10', border: 'border-loss/30' },
+  }
+
+  const cfg = scoreStyle[result.score] || scoreStyle.D
+
+  const scoreLabel = t(`result.score_${result.score.toLowerCase()}`)
+  const msgKey = `result.msg_${result.score.toLowerCase()}`
 
   return (
     <div className={`rounded-2xl border-2 p-6 ${cfg.bg} ${cfg.border} animate-fadeIn`}>
       <div className="flex items-center justify-between mb-4">
-        <span className="text-sm font-medium text-gray-500">Resultado</span>
+        <span className="text-sm font-medium text-gray-500">{t('result.titulo')}</span>
         <span className={`text-2xl font-black ${isPositive ? 'text-profit' : 'text-loss'}`}>
-          {isPositive ? '+' : ''}{formatCurrency(result.profit)}
+          {isPositive ? '+' : ''}{formatCurrency(result.profit, locale)}
         </span>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">Valor bruto</span>
-          <span className="text-sm font-bold">{formatCurrency(result.totalCost + result.profit)}</span>
+          <span className="text-xs text-gray-400 block">{t('result.valor_bruto')}</span>
+          <span className="text-sm font-bold">{formatCurrency(result.totalCost + result.profit, locale)}</span>
         </div>
         <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">Margem</span>
+          <span className="text-xs text-gray-400 block">{t('result.margem')}</span>
           <span className={`text-sm font-bold ${isPositive ? 'text-profit' : 'text-loss'}`}>
             {result.percentage.toFixed(1)}%
           </span>
         </div>
         <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">Custo total</span>
-          <span className="text-sm font-bold">{formatCurrency(result.totalCost)}</span>
+          <span className="text-xs text-gray-400 block">{t('result.custo_total')}</span>
+          <span className="text-sm font-bold">{formatCurrency(result.totalCost, locale)}</span>
         </div>
         <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">Custo por KM</span>
-          <span className="text-sm font-bold">{formatCurrency(result.costPerKm)}</span>
+          <span className="text-xs text-gray-400 block">{t('result.custo_km')}</span>
+          <span className="text-sm font-bold">{formatCurrency(result.costPerKm, locale)}</span>
         </div>
       </div>
 
@@ -58,18 +64,10 @@ export default function ResultCard({ result, onSave, saved }: Props) {
         </div>
         <div>
           <div className="font-bold text-gray-900">
-            Nota {result.score} — {cfg.label}
+            {t('result.nota', { score: result.score, label: scoreLabel })}
           </div>
           <div className="text-xs text-gray-400">
-            {result.score === 'F'
-              ? 'Essa corrida deu prejuízo. Evite corridas assim!'
-              : result.score === 'D'
-              ? 'Margem muito baixa. Quase no prejuízo.'
-              : result.score === 'C'
-              ? 'Margem razoável, mas pode melhorar.'
-              : result.score === 'B'
-              ? 'Boa corrida! Vale a pena.'
-              : 'Corrida excelente! Continue assim.'}
+            {t(msgKey)}
           </div>
         </div>
       </div>
@@ -80,7 +78,7 @@ export default function ResultCard({ result, onSave, saved }: Props) {
           disabled={saved}
           className="w-full py-2.5 rounded-xl border-2 border-brand-500 text-brand-600 font-semibold hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
-          {saved ? '✓ Corrida Salva' : 'Salvar no Histórico'}
+          {saved ? t('result.saved') : t('result.save')}
         </button>
       )}
     </div>

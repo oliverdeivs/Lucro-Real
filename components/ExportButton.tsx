@@ -3,12 +3,14 @@
 import { isPremium } from '@/lib/storage'
 import { DaySummary } from '@/lib/types'
 import { formatCurrency } from '@/lib/calculate'
+import { useTranslation, formatDate, localeConfig } from '@/lib/i18n'
 
 interface Props {
   summaries: DaySummary[]
 }
 
 export default function ExportButton({ summaries }: Props) {
+  const { t, locale } = useTranslation()
   const premium = isPremium()
   const hasData = summaries.length > 0
 
@@ -17,7 +19,7 @@ export default function ExportButton({ summaries }: Props) {
       window.open('https://hotmart.com/SEU-LINK-AQUI', '_blank')
       return
     }
-    generatePDF(summaries)
+    generatePDF(summaries, locale)
   }
 
   if (!hasData) return null
@@ -30,37 +32,67 @@ export default function ExportButton({ summaries }: Props) {
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
       </svg>
-      {premium ? 'Exportar Relatório em PDF' : '🔒 Desbloquear Exportação PDF'}
+      {premium ? t('export.exportar') : t('export.desbloquear')}
     </button>
   )
 }
 
-function generatePDF(summaries: DaySummary[]) {
+function generatePDF(summaries: DaySummary[], locale: 'pt' | 'es') {
+  const t = (key: string, vars?: Record<string, string | number>) => {
+    const dict: Record<string, Record<string, string>> = {
+      pt: {
+        'export.relatorio': '📊 Relatório LucroReal',
+        'export.periodo': 'Período: {days} dia(s) — Gerado em {date}',
+        'export.data': 'Data', 'export.corridas': 'Corridas',
+        'export.faturamento': 'Faturamento', 'export.combustivel': 'Combustível',
+        'export.km': 'KM', 'export.lucro': 'Lucro',
+        'export.lucro_total': 'Lucro Total', 'export.km_rodados': 'KM Rodados',
+        'export.dias': 'Dias', 'export.rodape': 'Relatório gerado por LucroReal — lucroreal.app',
+      },
+      es: {
+        'export.relatorio': '📊 Informe LucroReal',
+        'export.periodo': 'Período: {days} día(s) — Generado el {date}',
+        'export.data': 'Fecha', 'export.corridas': 'Carreras',
+        'export.faturamento': 'Facturación', 'export.combustivel': 'Combustible',
+        'export.km': 'KM', 'export.lucro': 'Ganancia',
+        'export.lucro_total': 'Ganancia Total', 'export.km_rodados': 'KM Recorridos',
+        'export.dias': 'Días', 'export.rodape': 'Informe generado por LucroReal — lucroreal.app',
+      },
+    }
+    const text = dict[locale]?.[key]
+    if (!text) return key
+    if (!vars) return text
+    return text.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? `{${k}}`))
+  }
+
   const totalProfit = summaries.reduce((s, d) => s + d.totalProfit, 0)
   const totalKm = summaries.reduce((s, d) => s + d.totalKm, 0)
   const totalRides = summaries.reduce((s, d) => s + d.totalRides, 0)
   const totalAmount = summaries.reduce((s, d) => s + d.totalAmount, 0)
   const totalFuel = summaries.reduce((s, d) => s + d.totalFuelCost, 0)
   const days = summaries.length
+  const cfg = localeConfig[locale]
 
   const printWindow = window.open('', '_blank')
   if (!printWindow) return
 
+  const dateLocale = cfg.locale
+
   const rows = summaries.map(d => `
     <tr>
-      <td style="padding:8px;border:1px solid #ddd">${new Date(d.date).toLocaleDateString('pt-BR')}</td>
+      <td style="padding:8px;border:1px solid #ddd">${new Date(d.date).toLocaleDateString(dateLocale)}</td>
       <td style="padding:8px;border:1px solid #ddd;text-align:center">${d.totalRides}</td>
-      <td style="padding:8px;border:1px solid #ddd;text-align:right">${formatCurrency(d.totalAmount)}</td>
-      <td style="padding:8px;border:1px solid #ddd;text-align:right">${formatCurrency(d.totalFuelCost)}</td>
+      <td style="padding:8px;border:1px solid #ddd;text-align:right">${formatCurrency(d.totalAmount, locale)}</td>
+      <td style="padding:8px;border:1px solid #ddd;text-align:right">${formatCurrency(d.totalFuelCost, locale)}</td>
       <td style="padding:8px;border:1px solid #ddd;text-align:right">${d.totalKm.toFixed(1)} km</td>
-      <td style="padding:8px;border:1px solid #ddd;text-align:right;color:${d.totalProfit >= 0 ? '#10B981' : '#EF4444'};font-weight:bold">${formatCurrency(d.totalProfit)}</td>
+      <td style="padding:8px;border:1px solid #ddd;text-align:right;color:${d.totalProfit >= 0 ? '#10B981' : '#EF4444'};font-weight:bold">${formatCurrency(d.totalProfit, locale)}</td>
     </tr>
   `).join('')
 
   printWindow.document.write(`
     <html>
     <head>
-      <title>Relatório LucroReal</title>
+      <title>${t('export.relatorio')}</title>
       <style>
         body { font-family: Arial, sans-serif; padding: 40px; color: #333; }
         h1 { color: #059669; font-size: 24px; margin-bottom: 4px; }
@@ -76,27 +108,27 @@ function generatePDF(summaries: DaySummary[]) {
       </style>
     </head>
     <body>
-      <h1>📊 Relatório LucroReal</h1>
-      <div class="sub">Período: ${summaries.length} dia(s) — Gerado em ${new Date().toLocaleDateString('pt-BR')}</div>
+      <h1>${t('export.relatorio')}</h1>
+      <div class="sub">${t('export.periodo', { days, date: new Date().toLocaleDateString(dateLocale) })}</div>
 
       <div class="resumo">
-        <div class="card"><label>Corridas</label><value>${totalRides}</value></div>
-        <div class="card"><label>Lucro Total</label><value>${formatCurrency(totalProfit)}</value></div>
-        <div class="card"><label>Faturamento</label><value>${formatCurrency(totalAmount)}</value></div>
-        <div class="card"><label>KM Rodados</label><value>${totalKm.toFixed(1)} km</value></div>
-        <div class="card"><label>Combustível</label><value>${formatCurrency(totalFuel)}</value></div>
-        <div class="card"><label>Dias</label><value>${days}</value></div>
+        <div class="card"><label>${t('export.corridas')}</label><value>${totalRides}</value></div>
+        <div class="card"><label>${t('export.lucro_total')}</label><value>${formatCurrency(totalProfit, locale)}</value></div>
+        <div class="card"><label>${t('export.faturamento')}</label><value>${formatCurrency(totalAmount, locale)}</value></div>
+        <div class="card"><label>${t('export.km_rodados')}</label><value>${totalKm.toFixed(1)} km</value></div>
+        <div class="card"><label>${t('export.combustivel')}</label><value>${formatCurrency(totalFuel, locale)}</value></div>
+        <div class="card"><label>${t('export.dias')}</label><value>${days}</value></div>
       </div>
 
       <table>
         <thead>
           <tr>
-            <th>Data</th>
-            <th>Corridas</th>
-            <th>Faturamento</th>
-            <th>Combustível</th>
-            <th>KM</th>
-            <th>Lucro</th>
+            <th>${t('export.data')}</th>
+            <th>${t('export.corridas')}</th>
+            <th>${t('export.faturamento')}</th>
+            <th>${t('export.combustivel')}</th>
+            <th>${t('export.km')}</th>
+            <th>${t('export.lucro')}</th>
           </tr>
         </thead>
         <tbody>
@@ -105,7 +137,7 @@ function generatePDF(summaries: DaySummary[]) {
       </table>
 
       <div style="text-align:center;color:#aaa;font-size:12px;margin-top:32px">
-        Relatório gerado por LucroReal — lucroreal.app
+        ${t('export.rodape')}
       </div>
 
       <script>

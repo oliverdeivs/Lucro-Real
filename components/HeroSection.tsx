@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { formatCurrency } from '@/lib/calculate'
+import { useTranslation } from '@/lib/i18n'
 
 const demoResults = [
   { amount: 32.50, km: 18, fuel: 14.80, profit: 17.70, score: 'B' },
@@ -11,6 +12,7 @@ const demoResults = [
 ]
 
 export default function HeroSection() {
+  const { t, locale } = useTranslation()
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {
@@ -23,139 +25,128 @@ export default function HeroSection() {
   const r = demoResults[current]
 
   return (
-    <section className="relative overflow-hidden pt-12 pb-20 md:pb-32">
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-50/80 via-white to-white pointer-events-none" />
+    <section className="relative overflow-hidden bg-white pt-8 pb-28 md:pb-36">
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-brand-100/60 via-emerald-50/40 to-transparent rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50/50 to-transparent rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] pointer-events-none" />
 
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-brand-200/40 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-blue-200/30 to-transparent rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative max-w-6xl mx-auto px-4">
-        <div className="text-center mb-12 animate-fadeInUp">
-          <div className="inline-flex items-center gap-2 bg-white border border-brand-200 text-brand-700 text-sm font-medium px-5 py-2 rounded-full shadow-sm mb-8">
-            <span className="w-2 h-2 bg-profit rounded-full animate-pulse" />
-            +1.500 motoristas já usam
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-[1.05] tracking-tight mb-6">
-            Você sabe quanto{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-400 animate-gradient">
-              realmente lucra
-            </span>
-            <br />
-            por corrida?
-          </h1>
-
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-            A maioria dos motoristas <strong className="text-gray-700">acha que está lucrando</strong>, 
-            mas depois de combustível, manutenção e desgaste,{' '}
-            <strong className="text-loss">está perdendo dinheiro</strong> sem saber.
-            <br />
-            Descubra em <strong className="text-brand-600">5 segundos</strong>.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href="#calculadora"
-              className="group px-8 py-4 bg-gradient-to-r from-brand-600 to-emerald-500 text-white font-semibold rounded-2xl hover:from-brand-700 hover:to-emerald-600 transition-all duration-300 shadow-xl shadow-brand-200/50 hover:shadow-2xl hover:shadow-brand-300/50 text-lg inline-flex items-center gap-2"
-            >
-              Calcular Meu Lucro Agora
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a
-              href="#como-funciona"
-              className="px-8 py-4 bg-white text-gray-700 font-semibold rounded-2xl border-2 border-gray-200 hover:border-brand-400 hover:text-brand-600 transition-all duration-300 text-lg shadow-sm"
-            >
-              Como Funciona
-            </a>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center animate-fadeInUp delay-200">
-          <div className="glass rounded-3xl p-6 md:p-8 shadow-2xl shadow-brand-200/20 animate-fadeInScale">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center text-white font-bold">
-                  LR
-                </div>
-                <div>
-                  <div className="font-semibold text-sm text-gray-900">Calculadora</div>
-                  <div className="text-xs text-gray-400">Ao vivo • Demo</div>
-                </div>
-              </div>
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-loss" />
-                <div className="w-3 h-3 rounded-full bg-warning" />
-                <div className="w-3 h-3 rounded-full bg-profit" />
-              </div>
+      <div className="relative max-w-7xl mx-auto px-4">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center min-h-[calc(100vh-8rem)]">
+          <div className="pt-16 lg:pt-24 animate-fadeInUp">
+            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse" />
+              {t('hero.badge')}
             </div>
 
-            <div className="space-y-3 mb-6">
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Valor recebido</span>
-                <span className="font-bold text-gray-900">{formatCurrency(r.amount)}</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">KM rodados</span>
-                <span className="font-bold text-gray-900">{r.km} km</span>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">Combustível</span>
-                <span className="font-bold text-gray-900">{formatCurrency(r.fuel)}</span>
-              </div>
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-[0.95] tracking-tighter mb-6">
+              {t('hero.title1')}{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-500">
+                {t('hero.title2')}
+              </span>
+              <br />
+              <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl">{t('hero.title3')}</span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
+              {t('hero.text1')} <strong className="text-gray-900">{t('hero.text2')}</strong>,{' '}
+              {t('hero.text3')}{' '}
+              <strong className="text-red-500">{t('hero.text4')}</strong> {t('hero.text5')}
+              <br />
+              {t('hero.text6')} <strong className="text-brand-600">{t('hero.text7')}</strong>.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a
+                href="#calculadora"
+                className="group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-gray-900/20 text-lg inline-flex items-center gap-2"
+              >
+                {t('hero.cta')}
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+              <a
+                href="#como-funciona"
+                className="px-8 py-4 bg-gray-50 text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 text-lg"
+              >
+                {t('hero.como')}
+              </a>
             </div>
 
-            <div className={`rounded-2xl p-5 ${r.profit >= 0 ? 'bg-profit/10 border border-profit/20' : 'bg-loss/10 border border-loss/20'}`}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-500">Lucro real</span>
-                <div className="flex items-center gap-2">
-                  <span className={`text-3xl font-black ${r.profit >= 0 ? 'text-profit' : 'text-loss'}`}>
-                    {r.profit >= 0 ? '+' : ''}{formatCurrency(r.profit)}
-                  </span>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center text-lg font-black text-white ${
-                    r.score === 'F' ? 'bg-loss' : r.score >= 'D' ? 'bg-warning' : 'bg-profit'
-                  }`}>
-                    {r.score}
-                  </div>
-                </div>
-              </div>
-              <div className="text-xs text-gray-400">
-                {r.score === 'F'
-                  ? 'Prejuízo! Essa corrida está te custando dinheiro.'
-                  : r.score === 'D'
-                  ? 'Margem muito baixa. Quase no prejuízo.'
-                  : r.score === 'C'
-                  ? 'Margem razoável. Dá pra melhorar.'
-                  : 'Boa corrida! Vale a pena.'}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex items-center gap-10 mt-12 pt-8 border-t border-gray-100">
               {[
-                { value: '1.5M+', label: 'Motoristas no Brasil', gradient: 'from-brand-500 to-emerald-500' },
-                { value: '67%', label: 'Estão endividados', gradient: 'from-loss to-rose-500' },
-                { value: '9h+', label: 'Por dia dirigindo', gradient: 'from-warning to-orange-500' },
-                { value: '70%', label: 'Dependem só do app', gradient: 'from-blue-500 to-indigo-500' },
+                { value: '1.5M+', label: t('hero.stat1') },
+                { value: '67%', label: t('hero.stat2') },
+                { value: '9h+', label: t('hero.stat3') },
               ].map(stat => (
-                <div key={stat.label} className="glass rounded-2xl p-5 hover:shadow-lg transition-all duration-300">
-                  <div className={`text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r ${stat.gradient} mb-1`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
+                <div key={stat.label}>
+                  <div className="text-3xl font-black text-gray-900 tracking-tight">{stat.value}</div>
+                  <div className="text-sm text-gray-400 mt-0.5">{stat.label}</div>
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="glass rounded-2xl p-5 flex items-center gap-4 hover:shadow-lg transition-all duration-300">
-              <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center text-xl shrink-0">
-                💡
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-gray-900">Você sabia?</div>
-                <div className="text-sm text-gray-500">70% dos motoristas não controlam seus gastos e 67% estão endividados.</div>
+          <div className="hidden lg:block animate-fadeInUp delay-200 pt-16 lg:pt-24">
+            <div className="relative">
+              <div className="absolute -inset-6 bg-gradient-to-r from-brand-500/10 via-emerald-500/10 to-transparent rounded-[2rem] blur-3xl" />
+              <div className="relative bg-white rounded-[1.75rem] border border-gray-200/80 p-6 shadow-2xl shadow-gray-200/60">
+                <div className="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-brand-200/40">
+                      LR
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-gray-900">{t('hero.demo.calc')}</div>
+                      <div className="text-xs text-gray-400">{t('hero.demo.live')}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                  </div>
+                </div>
+
+                <div className="space-y-2.5 mb-5">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <span className="text-sm text-gray-500">{t('hero.demo.valor')}</span>
+                    <span className="font-bold text-gray-900">{formatCurrency(r.amount, locale)}</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <span className="text-sm text-gray-500">{t('hero.demo.km')}</span>
+                    <span className="font-bold text-gray-900">{r.km} km</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                    <span className="text-sm text-gray-500">{t('hero.demo.comb')}</span>
+                    <span className="font-bold text-gray-900">{formatCurrency(r.fuel, locale)}</span>
+                  </div>
+                </div>
+
+                <div className={`rounded-xl p-4 ${r.profit >= 0 ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-500">{t('hero.demo.lucro')}</span>
+                    <div className="flex items-center gap-3">
+                      <span className={`text-2xl font-black ${r.profit >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                        {r.profit >= 0 ? '+' : ''}{formatCurrency(r.profit, locale)}
+                      </span>
+                      <div className={`w-9 h-9 rounded-full flex items-center justify-center text-base font-black text-white ${
+                        r.score === 'F' ? 'bg-red-500' : r.score >= 'D' ? 'bg-yellow-500' : 'bg-emerald-500'
+                      }`}>
+                        {r.score}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-400 mt-2">
+                    {r.score === 'F'
+                      ? t('hero.demo.f_msg')
+                      : r.score === 'D'
+                      ? t('hero.demo.d_msg')
+                      : r.score === 'C'
+                      ? t('hero.demo.c_msg')
+                      : t('hero.demo.b_msg')}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

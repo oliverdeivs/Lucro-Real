@@ -7,8 +7,10 @@ import DashboardStats from '@/components/DashboardStats'
 import RideHistory from '@/components/RideHistory'
 import ExportButton from '@/components/ExportButton'
 import WeeklyChart from '@/components/WeeklyChart'
+import { useTranslation } from '@/lib/i18n'
 
 export default function DashboardPage() {
+  const { t, plural } = useTranslation()
   const [rides, setRides] = useState<Ride[]>([])
   const [summaries, setSummaries] = useState<DaySummary[]>([])
   const [showClearConfirm, setShowClearConfirm] = useState(false)
@@ -32,9 +34,9 @@ export default function DashboardPage() {
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-black text-gray-900">Dashboard</h1>
+          <h1 className="text-3xl font-black text-gray-900">{t('dash.title')}</h1>
           <p className="text-gray-400 text-sm">
-            {rides.length} corrida{rides.length !== 1 ? 's' : ''} registrada{rides.length !== 1 ? 's' : ''}
+            {plural('dash.corridas_count', rides.length)} {plural('dash.registered', rides.length)}
           </p>
         </div>
 
@@ -49,13 +51,13 @@ export default function DashboardPage() {
                     onClick={handleClear}
                     className="px-3 py-2 text-xs bg-loss text-white rounded-lg hover:bg-red-600 transition-colors"
                   >
-                    Limpar Tudo
+                    {t('dash.limpar_tudo')}
                   </button>
                   <button
                     onClick={() => setShowClearConfirm(false)}
                     className="px-3 py-2 text-xs bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors"
                   >
-                    Cancelar
+                    {t('dash.cancelar')}
                   </button>
                 </div>
               ) : (
@@ -63,7 +65,7 @@ export default function DashboardPage() {
                   onClick={() => setShowClearConfirm(true)}
                   className="px-3 py-2 text-xs text-gray-400 hover:text-loss border border-gray-200 rounded-lg hover:border-loss transition-colors"
                 >
-                  Limpar Dados
+                  {t('dash.limpar_dados')}
                 </button>
               )}
             </>
@@ -75,7 +77,7 @@ export default function DashboardPage() {
         <DashboardStats summaries={summaries} />
         <WeeklyChart summaries={summaries} />
         <div>
-          <h2 className="text-lg font-bold text-gray-900 mb-4">Histórico de Corridas</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-4">{t('dash.historico')}</h2>
           <RideHistory rides={rides} onDelete={loadData} />
         </div>
       </div>
