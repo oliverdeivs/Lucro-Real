@@ -28,13 +28,13 @@ export default function PricingSection() {
 
         <div className="max-w-sm mx-auto">
           <div className="bg-white rounded-[2rem] border border-gray-100 p-8 md:p-10 shadow-xl shadow-gray-200/40 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 via-emerald-400 to-brand-500" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 via-emerald-400 to-brand-500 rounded-t-[2rem]" />
 
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white border border-gray-200 text-gray-900 text-xs font-semibold px-5 py-1.5 rounded-full shadow-sm">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white border border-gray-200 text-gray-900 text-xs font-semibold px-5 py-1.5 rounded-full shadow-sm">
               {t('pricing.best')}
             </div>
 
-            <div className="text-center mb-8 mt-6">
+            <div className="text-center mb-8 mt-12">
               <div className="flex items-baseline justify-center gap-1 mb-2">
                 <span className="text-lg text-gray-400 font-medium">{cfg.symbol}</span>
                 <span className="text-6xl font-black text-gray-900 tracking-tight">37</span>
