@@ -34,6 +34,9 @@ const dict: Record<Locale, Record<string, string>> = {
     'footer.copyright': '© 2026 LucroReal. Todos os direitos reservados.',
 
     // HERO
+    'hero.nav_calc': 'Calculadora',
+    'hero.nav_dep': 'Depoimentos',
+    'hero.comprar_btn': 'Comprar',
     'hero.badge': '+1.500 motoristas já usam',
     'hero.title1': 'Você sabe quanto',
     'hero.title2': 'realmente lucra',
@@ -236,6 +239,9 @@ const dict: Record<Locale, Record<string, string>> = {
     'footer.fale': 'Contáctanos',
     'footer.copyright': '© 2026 LucroReal. Todos los derechos reservados.',
 
+    'hero.nav_calc': 'Calculadora',
+    'hero.nav_dep': 'Testimonios',
+    'hero.comprar_btn': 'Comprar',
     'hero.badge': '+1.500 conductores ya lo usan',
     'hero.title1': '¿Sabes cuánto',
     'hero.title2': 'realmente ganas',
