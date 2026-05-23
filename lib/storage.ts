@@ -4,6 +4,8 @@ import { Ride, DaySummary } from './types'
 
 const STORAGE_KEY = 'lucro-real-rides'
 const PREMIUM_KEY = 'lucro-real-premium'
+const CALC_COUNT_KEY = 'lucro-real-calc-count'
+export const MAX_FREE_CALCS = 4
 
 export function getRides(): Ride[] {
   if (typeof window === 'undefined') return []
@@ -58,4 +60,28 @@ export function isPremium(): boolean {
 
 export function setPremium(): void {
   localStorage.setItem(PREMIUM_KEY, 'true')
+}
+
+export function getCalcCount(): number {
+  if (typeof window === 'undefined') return 0
+  try {
+    return parseInt(localStorage.getItem(CALC_COUNT_KEY) || '0', 10)
+  } catch {
+    return 0
+  }
+}
+
+export function incrementCalcCount(): number {
+  const next = getCalcCount() + 1
+  localStorage.setItem(CALC_COUNT_KEY, String(next))
+  return next
+}
+
+export function canCalculate(): boolean {
+  return isPremium() || getCalcCount() < MAX_FREE_CALCS
+}
+
+export function getRemainingFreeCalcs(): number {
+  if (isPremium()) return Infinity
+  return Math.max(0, MAX_FREE_CALCS - getCalcCount())
 }

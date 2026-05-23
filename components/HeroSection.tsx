@@ -45,7 +45,7 @@ export default function HeroSection() {
             <span className="text-base font-bold text-gray-900">LucroReal</span>
           </a>
           <div className="flex items-center gap-4">
-            <a href="#calculadora" className="hidden sm:inline-flex text-sm text-gray-400 hover:text-gray-900 transition-colors">
+            <a href="/calcular" className="hidden sm:inline-flex text-sm text-gray-400 hover:text-gray-900 transition-colors">
               {t('hero.nav_calc')}
             </a>
             <a href="#depoimentos" className="hidden sm:inline-flex text-sm text-gray-400 hover:text-gray-900 transition-colors">
@@ -91,7 +91,7 @@ export default function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="#calculadora"
+                href="/calcular"
                 className="group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-gray-900/20 text-lg inline-flex items-center gap-2"
               >
                 {t('hero.cta')}
