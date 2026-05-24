@@ -6,17 +6,17 @@ const testimonials = [
   {
     key: '1',
     initials: 'CM',
-    color: 'from-brand-500 to-brand-700',
+    img: 'https://randomuser.me/api/portraits/men/32.jpg',
   },
   {
     key: '2',
     initials: 'AP',
-    color: 'from-brand-500 to-brand-700',
+    img: 'https://randomuser.me/api/portraits/women/44.jpg',
   },
   {
     key: '3',
     initials: 'RS',
-    color: 'from-brand-500 to-brand-700',
+    img: 'https://randomuser.me/api/portraits/men/75.jpg',
   },
 ]
 
@@ -58,9 +58,11 @@ export default function SocialProof() {
               <p className="text-white/70 text-sm leading-relaxed mb-6">&ldquo;{t(`social.test${tItem.key}.text`)}&rdquo;</p>
 
               <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${tItem.color} flex items-center justify-center text-white text-xs font-bold shrink-0`}>
-                  {tItem.initials}
-                </div>
+                <img
+                  src={tItem.img}
+                  alt=""
+                  className="w-9 h-9 rounded-xl object-cover shrink-0"
+                />
                 <div>
                   <div className="font-semibold text-sm text-white">{t(`social.test${tItem.key}.name`)}</div>
                   <div className="text-xs text-white/40">{t(`social.test${tItem.key}.role`)}</div>
@@ -72,10 +74,18 @@ export default function SocialProof() {
 
         <div className="flex items-center justify-center gap-6 mt-12 pt-8 border-t border-white/10 max-w-5xl mx-auto">
           <div className="flex -space-x-2">
-            {[1, 2, 3, 4].map(i => (
-              <div key={i} className={`w-9 h-9 rounded-full border-2 border-brand-900 bg-gradient-to-br ${
-                ['from-brand-500 to-brand-700', 'from-brand-400 to-brand-600', 'from-brand-500 to-brand-700', 'from-brand-400 to-brand-600'][i-1]
-              }`} />
+            {[
+              'https://randomuser.me/api/portraits/women/65.jpg',
+              'https://randomuser.me/api/portraits/men/41.jpg',
+              'https://randomuser.me/api/portraits/men/86.jpg',
+              'https://randomuser.me/api/portraits/women/22.jpg',
+            ].map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt=""
+                className="w-9 h-9 rounded-full border-2 border-brand-900 object-cover"
+              />
             ))}
           </div>
           <div className="text-sm text-white/50">
