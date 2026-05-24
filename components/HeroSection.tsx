@@ -1,28 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { formatCurrency } from '@/lib/calculate'
-import { useTranslation, Locale, locales, localeConfig } from '@/lib/i18n'
-
-const demoResults = [
-  { amount: 32.50, km: 18, fuel: 14.80, profit: 17.70, score: 'B' },
-  { amount: 18.00, km: 12, fuel: 9.60, profit: 8.40, score: 'C' },
-  { amount: 45.00, km: 35, fuel: 28.00, profit: 17.00, score: 'D' },
-  { amount: 27.00, km: 22, fuel: 30.80, profit: -3.80, score: 'F' },
-]
+import { useTranslation, Locale, locales } from '@/lib/i18n'
 
 export default function HeroSection() {
   const { t, locale, setLocale } = useTranslation()
-  const [current, setCurrent] = useState(0)
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent(prev => (prev + 1) % demoResults.length)
-    }, 3500)
-    return () => clearInterval(timer)
-  }, [])
-
-  const r = demoResults[current]
 
   const toggleLang = () => {
     const idx = locales.indexOf(locale)
@@ -121,90 +102,14 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="hidden lg:flex justify-center animate-fadeInUp delay-200 pt-16 lg:pt-24">
-            <div className="relative">
+          <div className="hidden lg:flex justify-center items-center animate-fadeInUp delay-200 pt-16 lg:pt-24">
+            <div className="relative w-full max-w-md">
               <div className="absolute -inset-10 bg-white/10 rounded-full blur-3xl" />
-
-              <div className="relative w-[300px] bg-black/40 backdrop-blur-sm rounded-[3rem] p-3 shadow-2xl shadow-black/30">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[30px] bg-black/40 rounded-b-2xl z-10 flex items-center justify-center">
-                  <div className="w-20 h-1.5 bg-white/20 rounded-full" />
-                </div>
-
-                <div className="w-[276px] h-[598px] bg-white rounded-[2.25rem] overflow-hidden relative">
-                  <div className="h-12 bg-gray-900 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">9:41</span>
-                  </div>
-
-                  <div className="px-4 pt-3 pb-2 bg-white">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-7 h-7 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-[10px] shadow-sm">
-                        LR
-                      </div>
-                      <div>
-                        <div className="text-xs font-semibold text-gray-900">LucroReal</div>
-                        <div className="text-[10px] text-gray-400">{t('hero.demo.live')}</div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 mb-3">
-                      <div className="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
-                        <span className="text-[11px] text-gray-500">{t('hero.demo.valor')}</span>
-                        <span className="text-sm font-bold text-gray-900">{formatCurrency(r.amount, locale)}</span>
-                      </div>
-                      <div className="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
-                        <span className="text-[11px] text-gray-500">{t('hero.demo.km')}</span>
-                        <span className="text-sm font-bold text-gray-900">{r.km} km</span>
-                      </div>
-                      <div className="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
-                        <span className="text-[11px] text-gray-500">{t('hero.demo.comb')}</span>
-                        <span className="text-sm font-bold text-gray-900">{formatCurrency(r.fuel, locale)}</span>
-                      </div>
-                    </div>
-
-                    <div className={`rounded-xl p-3 ${r.profit >= 0 ? 'bg-emerald-50' : 'bg-red-50'}`}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[11px] font-medium text-gray-500">{t('hero.demo.lucro')}</span>
-                        <div className="flex items-center gap-2">
-                          <span className={`text-lg font-black ${r.profit >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
-                            {r.profit >= 0 ? '+' : ''}{formatCurrency(r.profit, locale)}
-                          </span>
-                          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black text-white ${
-                            r.score === 'F' ? 'bg-red-500' : r.score >= 'D' ? 'bg-yellow-500' : 'bg-emerald-500'
-                          }`}>
-                            {r.score}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-[10px] text-gray-400 leading-tight">
-                        {r.score === 'F'
-                          ? t('hero.demo.f_msg')
-                          : r.score === 'D'
-                          ? t('hero.demo.d_msg')
-                          : r.score === 'C'
-                          ? t('hero.demo.c_msg')
-                          : t('hero.demo.b_msg')}
-                      </div>
-                    </div>
-
-                    <div className="mt-3 flex items-center justify-center gap-1.5">
-                      {demoResults.map((_, i) => (
-                        <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === current ? 'bg-brand-500 w-4' : 'bg-gray-200'}`} />
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 h-14 bg-white flex items-center justify-around px-6 border-t border-gray-100">
-                    <div className="w-4 h-4 rounded-full bg-gray-200" />
-                    <div className="w-4 h-4 rounded-full bg-gray-200" />
-                    <div className="w-4 h-4 rounded-full bg-gray-200" />
-                    <div className="w-4 h-4 rounded-full bg-gray-200" />
-                  </div>
-                </div>
-
-                <div className="flex justify-center mt-2">
-                  <div className="w-[100px] h-[3px] bg-white/20 rounded-full" />
-                </div>
-              </div>
+              <img
+                src="/public.png.png"
+                alt="LucroReal App"
+                className="relative w-full h-auto rounded-3xl shadow-2xl shadow-black/30"
+              />
             </div>
           </div>
         </div>
