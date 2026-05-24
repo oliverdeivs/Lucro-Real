@@ -23,33 +23,31 @@ export default function PreviewDashboard() {
 
   const totalProfit = sampleRides.reduce((s, r) => s + r.profit, 0)
   const totalKm = sampleRides.reduce((s, r) => s + r.km, 0)
-  const profitCount = sampleRides.filter(r => r.profit > 0).length
-  const lossCount = sampleRides.filter(r => r.profit < 0).length
 
   return (
-    <section className="relative py-28 md:py-36 bg-white">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(5,150,105,0.04),transparent)] pointer-events-none" />
+    <section className="relative py-28 md:py-36 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_50%_0%,rgba(255,255,255,0.05),transparent)] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
-            <span className="w-1 h-1 bg-brand-500 rounded-full" />
+          <span className="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
+            <span className="w-1 h-1 bg-brand-300 rounded-full" />
             {t('preview.dash_badge')}
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight mb-4 leading-[1.05]">
+          <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-[1.05]">
             {t('preview.dash_title')}
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
             {t('preview.dash_sub')}
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-gray-200/40 p-6">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-black/20 p-6">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-xs">LR</div>
+                  <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center text-white font-bold text-xs">LR</div>
                   <span className="font-bold text-gray-900">Dashboard</span>
                 </div>
                 <div className="flex gap-1">
@@ -85,7 +83,7 @@ export default function PreviewDashboard() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-gray-200/40 p-6">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-black/20 p-6">
               <h4 className="text-sm font-bold text-gray-900 mb-3">{t('calc.recent')}</h4>
               <div className="space-y-2">
                 {sampleRides.slice(0, 4).map((r, i) => (
@@ -110,15 +108,15 @@ export default function PreviewDashboard() {
           </div>
 
           <div>
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-8 text-white shadow-xl">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-white border border-white/10 shadow-xl">
               <h4 className="font-bold text-lg mb-4">{t('preview.include')}</h4>
               <ul className="space-y-3">
                 {[
                   'preview.include1', 'preview.include2', 'preview.include3',
                   'preview.include4', 'preview.include5', 'preview.include6',
                 ].map(key => (
-                  <li key={key} className="flex items-center gap-3 text-sm text-gray-300">
-                    <svg className="w-5 h-5 text-profit shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <li key={key} className="flex items-center gap-3 text-sm text-white/70">
+                    <svg className="w-5 h-5 text-brand-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
                     {t(key)}
@@ -127,7 +125,7 @@ export default function PreviewDashboard() {
               </ul>
               <a
                 href="/calcular"
-                className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 font-bold rounded-xl hover:bg-gray-100 transition-all"
+                className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white text-brand-900 font-bold rounded-xl hover:bg-white/90 transition-all"
               >
                 {t('hero.cta')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

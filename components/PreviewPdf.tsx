@@ -7,25 +7,25 @@ export default function PreviewPdf() {
   const cfg = localeConfig[locale]
 
   return (
-    <section className="relative py-28 md:py-36 bg-gray-50">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] pointer-events-none" />
+    <section className="relative py-28 md:py-36 bg-gradient-to-br from-brand-800 via-brand-900 to-brand-950">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
-            <span className="w-1 h-1 bg-brand-500 rounded-full" />
+          <span className="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
+            <span className="w-1 h-1 bg-brand-300 rounded-full" />
             {t('preview.pdf_badge')}
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 tracking-tight mb-4 leading-[1.05]">
+          <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-[1.05]">
             {t('preview.pdf_title')}
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
             {t('preview.pdf_desc')}
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-2xl shadow-gray-200/50 border border-gray-200 overflow-hidden rotate-[-0.5deg] hover:rotate-0 transition-transform duration-500">
+          <div className="bg-white rounded-2xl shadow-2xl shadow-black/20 border border-gray-200 overflow-hidden rotate-[-0.5deg] hover:rotate-0 transition-transform duration-500">
             <div className="bg-gray-50 border-b border-gray-200 px-6 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 rounded-full bg-red-400" />
@@ -37,7 +37,7 @@ export default function PreviewPdf() {
 
             <div className="p-8 md:p-10">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold text-sm">LR</div>
+                <div className="w-10 h-10 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-sm">LR</div>
                 <div>
                   <h3 className="text-lg font-black text-gray-900">📊 {t('export.relatorio')}</h3>
                   <p className="text-xs text-gray-400">
@@ -102,7 +102,7 @@ export default function PreviewPdf() {
           <div className="text-center mt-8">
             <a
               href="#preco"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all shadow-xl shadow-gray-900/10"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-brand-900 font-bold rounded-xl hover:bg-white/90 transition-all shadow-xl shadow-black/20"
             >
               {t('pricing.cta')}
             </a>

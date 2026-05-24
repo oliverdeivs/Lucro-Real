@@ -57,19 +57,19 @@ export default function BenefitsSection() {
   const { t } = useTranslation()
 
   return (
-    <section id="como-funciona" className="relative py-28 md:py-36 bg-gray-50">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#e5e7eb_1px,transparent_1px),linear-gradient(to_bottom,#e5e7eb_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] pointer-events-none" />
+    <section id="como-funciona" className="relative py-28 md:py-36 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black,transparent)] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center mb-20">
-          <span className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
-            <span className="w-1 h-1 bg-brand-500 rounded-full" />
+          <span className="inline-flex items-center gap-2 bg-white/10 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-5 tracking-wider uppercase">
+            <span className="w-1 h-1 bg-brand-300 rounded-full" />
             {t('benefits.badge')}
           </span>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 tracking-tight mb-5 leading-[1.05]">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight mb-5 leading-[1.05]">
             {t('benefits.title')}
           </h2>
-          <p className="text-lg text-gray-400 max-w-xl mx-auto leading-relaxed">
+          <p className="text-lg text-white/60 max-w-xl mx-auto leading-relaxed">
             {t('benefits.sub')}
           </p>
         </div>
@@ -78,14 +78,14 @@ export default function BenefitsSection() {
           {items.map((item, i) => (
             <div
               key={item.key}
-              className="group flex items-start gap-5 bg-white rounded-2xl p-6 border border-gray-100 hover:border-gray-200 hover:shadow-lg hover:shadow-gray-200/30 transition-all duration-300"
+              className="group flex items-start gap-5 bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/[0.08] hover:border-white/20 hover:shadow-lg hover:shadow-black/20 transition-all duration-300"
             >
-              <div className="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 shrink-0 mt-0.5 group-hover:scale-110 group-hover:bg-brand-100 transition-all duration-300">
+              <div className="w-10 h-10 bg-brand-500/20 rounded-xl flex items-center justify-center text-brand-300 shrink-0 mt-0.5 group-hover:scale-110 group-hover:bg-brand-500/30 transition-all duration-300">
                 {item.icon}
               </div>
               <div>
-                <h3 className="font-bold text-base text-gray-900 mb-1">{t(`benefits.${item.key}.title`)}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{t(`benefits.${item.key}.desc`)}</p>
+                <h3 className="font-bold text-base text-white mb-1">{t(`benefits.${item.key}.title`)}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{t(`benefits.${item.key}.desc`)}</p>
               </div>
             </div>
           ))}

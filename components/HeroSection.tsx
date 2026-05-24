@@ -12,7 +12,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#064E3B] via-[#059669] to-[#10B981] pt-8 pb-28 md:pb-36">
+    <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 pt-8 pb-28 md:pb-36">
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/[0.08] rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
@@ -40,7 +40,7 @@ export default function HeroSection() {
             </button>
             <a
               href="#preco"
-              className="px-5 py-2.5 bg-white text-[#064E3B] text-sm font-semibold rounded-xl hover:bg-white/90 transition-all shadow-lg shadow-black/10"
+              className="px-5 py-2.5 bg-white text-brand-900 text-sm font-semibold rounded-xl hover:bg-white/90 transition-all shadow-lg shadow-black/10"
             >
               {t('hero.comprar_btn')}
             </a>
@@ -49,13 +49,13 @@ export default function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center min-h-[calc(100vh-8rem)]">
           <div className="pt-16 lg:pt-24 animate-fadeInUp">
             <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-pulse" />
+              <span className="w-1.5 h-1.5 bg-brand-300 rounded-full animate-pulse" />
               {t('hero.badge')}
             </div>
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-6">
               {t('hero.title1')}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-100">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 via-brand-300 to-brand-100">
                 {t('hero.title2')}
               </span>
               <br />
@@ -67,13 +67,13 @@ export default function HeroSection() {
               {t('hero.text3')}{' '}
               <strong className="text-red-300">{t('hero.text4')}</strong> {t('hero.text5')}
               <br />
-              {t('hero.text6')} <strong className="text-emerald-300">{t('hero.text7')}</strong>.
+              {t('hero.text6')} <strong className="text-brand-300">{t('hero.text7')}</strong>.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="/calcular"
-                className="group px-8 py-4 bg-white text-[#064E3B] font-semibold rounded-2xl hover:bg-white/90 transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-2xl hover:shadow-black/20 text-lg inline-flex items-center gap-2"
+                className="group px-8 py-4 bg-white text-brand-900 font-semibold rounded-2xl hover:bg-white/90 transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-2xl hover:shadow-black/20 text-lg inline-flex items-center gap-2"
               >
                 {t('hero.cta')}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
