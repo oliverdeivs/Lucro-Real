@@ -23,6 +23,9 @@ export default function CalcularPage() {
   const [summaries, setSummaries] = useState<DaySummary[]>([])
   const [calcCount, setCalcCount] = useState(0)
   const [showSettings, setShowSettings] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => { setMounted(true) }, [])
 
   const loadData = useCallback(() => {
     setRides(getRides())
@@ -66,8 +69,12 @@ export default function CalcularPage() {
   }
 
   const remaining = getRemainingFreeCalcs()
-  const freeLeft = isPremium() ? Infinity : remaining
-  const blocked = !isPremium() && getCalcCount() >= 4
+  const _freeLeft = isPremium() ? Infinity : remaining
+  const freeLeft = mounted ? _freeLeft : 4
+  const _blocked = !isPremium() && getCalcCount() >= 4
+  const blocked = mounted ? _blocked : false
+  const _premium = isPremium()
+  const premium = mounted ? _premium : false
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -94,14 +101,17 @@ export default function CalcularPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </button>
-            <div className={`px-4 py-2 rounded-xl text-sm font-bold border ${
-              isPremium()
+            <div className={`px-4 py-2 rounded-xl text-sm font-bold border transition-colors ${
+              !mounted ? 'bg-brand-50 text-brand-600 border-brand-100' :
+              premium
                 ? 'bg-profit/10 text-profit border-profit/30'
                 : freeLeft <= 1
                 ? 'bg-warning/10 text-warning border-warning/30'
                 : 'bg-brand-50 text-brand-600 border-brand-100'
             }`}>
-              {isPremium()
+              {!mounted
+                ? '...'
+                : premium
                 ? t('calc.remaining_premium')
                 : t('calc.remaining', { count: freeLeft })}
             </div>
