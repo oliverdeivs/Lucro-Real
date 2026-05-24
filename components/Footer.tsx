@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useTranslation } from '@/lib/i18n'
 
 export default function Footer() {
@@ -33,9 +34,9 @@ export default function Footer() {
           <div>
             <div className="font-semibold text-white text-sm mb-3">{t('footer.suporte')}</div>
             <div className="space-y-2 text-sm text-white/40">
-              <a href="#" className="block hover:text-brand-300 transition-colors">{t('footer.termos')}</a>
-              <a href="#" className="block hover:text-brand-300 transition-colors">{t('footer.privacidade')}</a>
-              <a href="#" className="block hover:text-brand-300 transition-colors">{t('footer.fale')}</a>
+              <Link href="/termos" className="block hover:text-brand-300 transition-colors">{t('footer.termos')}</Link>
+              <Link href="/privacidade" className="block hover:text-brand-300 transition-colors">{t('footer.privacidade')}</Link>
+              <Link href="/fale-conosco" className="block hover:text-brand-300 transition-colors">{t('footer.fale')}</Link>
             </div>
           </div>
         </div>
