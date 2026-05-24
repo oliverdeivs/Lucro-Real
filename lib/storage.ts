@@ -1,11 +1,37 @@
 'use client'
 
-import { Ride, DaySummary } from './types'
+import { Ride, DaySummary, AppSettings } from './types'
 
 const STORAGE_KEY = 'lucro-real-rides'
 const PREMIUM_KEY = 'lucro-real-premium'
 const CALC_COUNT_KEY = 'lucro-real-calc-count'
+const SETTINGS_KEY = 'lucro-real-settings'
 export const MAX_FREE_CALCS = 4
+
+export const defaultSettings: AppSettings = {
+  fuelPricePerLiter: 6.39,
+  carConsumptionKmPerLiter: 12,
+  monthlyMaintenance: 300,
+  monthlyInsurance: 250,
+  monthlyTax: 80,
+  daysWorkingPerMonth: 22,
+  dailyGoal: 150,
+  weeklyGoal: 900,
+}
+
+export function getSettings(): AppSettings {
+  if (typeof window === 'undefined') return defaultSettings
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY)
+    return raw ? { ...defaultSettings, ...JSON.parse(raw) } : defaultSettings
+  } catch {
+    return defaultSettings
+  }
+}
+
+export function saveSettings(settings: AppSettings): void {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings))
+}
 
 export function getRides(): Ride[] {
   if (typeof window === 'undefined') return []

@@ -150,6 +150,8 @@ const dict: Record<Locale, Record<string, string>> = {
     'form.km_ph': 'Ex: 12.5',
     'form.comb': 'Gasto com combustível na corrida ({symbol})',
     'form.comb_ph': 'Ex: 8.50',
+    'form.outros': 'Outros custos (opcional)',
+    'form.outros_ph': 'Ex: 5.00 (pedágio, lavagem, etc)',
     'form.calcular': 'Calcular Lucro',
 
     // RESULT CARD
@@ -158,6 +160,8 @@ const dict: Record<Locale, Record<string, string>> = {
     'result.margem': 'Margem',
     'result.custo_total': 'Custo total',
     'result.custo_km': 'Custo por KM',
+    'result.combustivel': 'Combustível',
+    'result.outros': 'Outros custos',
     'result.score_a': 'Excelente',
     'result.score_b': 'Boa',
     'result.score_c': 'Razoável',
@@ -180,6 +184,9 @@ const dict: Record<Locale, Record<string, string>> = {
     'dash.cancelar': 'Cancelar',
     'dash.limpar_dados': 'Limpar Dados',
     'dash.historico': 'Histórico de Corridas',
+    'dash.meta_atingida': '🎯 Meta do dia atingida!',
+    'dash.custo_fixo_periodo': 'Custos fixos (período)',
+    'dash.lucro_real': 'Lucro Real (líquido)',
 
     // DASHBOARD STATS
     'stats.corridas': 'Corridas',
@@ -255,6 +262,21 @@ const dict: Record<Locale, Record<string, string>> = {
     'obrigado.desc': 'Seu acesso ao LucroReal foi liberado com sucesso. Você já pode usar todas as funcionalidades premium.',
     'obrigado.redirect': 'Redirecionando para seu dashboard em {countdown} segundos...',
     'obrigado.cta': 'Ir para o Dashboard Agora',
+
+    // SETTINGS
+    'settings.titulo': 'Configurações',
+    'settings.metas': 'Metas de Ganho',
+    'settings.meta_dia': 'Meta diária',
+    'settings.meta_semana': 'Meta semanal',
+    'settings.custos_fixos': 'Custos Fixos Mensais',
+    'settings.custos_fixos_desc': 'Estes custos são rateados por dia trabalhado e exibidos no dashboard.',
+    'settings.manutencao': 'Manutenção',
+    'settings.seguro': 'Seguro',
+    'settings.ipva': 'IPVA + Licenciamento',
+    'settings.dias_trab': 'Dias trabalhados/mês',
+    'settings.custo_dia': 'Custo fixo por dia',
+    'settings.custo_dia_desc': 'Baseado em {dias} dias trabalhados por mês',
+    'settings.salvar': 'Salvar Configurações',
   },
 
   es: {
@@ -382,6 +404,8 @@ const dict: Record<Locale, Record<string, string>> = {
     'form.km_ph': 'Ej: 12.5',
     'form.comb': 'Gasto de combustible en la carrera ({symbol})',
     'form.comb_ph': 'Ej: 8.50',
+    'form.outros': 'Otros costos (opcional)',
+    'form.outros_ph': 'Ej: 5.00 (peaje, lavado, etc)',
     'form.calcular': 'Calcular Ganancia',
 
     'result.titulo': 'Resultado',
@@ -389,6 +413,8 @@ const dict: Record<Locale, Record<string, string>> = {
     'result.margem': 'Margen',
     'result.custo_total': 'Costo total',
     'result.custo_km': 'Costo por KM',
+    'result.combustivel': 'Combustible',
+    'result.outros': 'Otros costos',
     'result.score_a': 'Excelente',
     'result.score_b': 'Buena',
     'result.score_c': 'Regular',
@@ -410,6 +436,9 @@ const dict: Record<Locale, Record<string, string>> = {
     'dash.cancelar': 'Cancelar',
     'dash.limpar_dados': 'Limpiar Datos',
     'dash.historico': 'Historial de Carreras',
+    'dash.meta_atingida': '🎯 ¡Meta del día alcanzada!',
+    'dash.custo_fixo_periodo': 'Costos fijos (período)',
+    'dash.lucro_real': 'Ganancia Real (líquida)',
 
     'stats.corridas': 'Carreras',
     'stats.lucro_total': 'Ganancia Total',
@@ -480,6 +509,21 @@ const dict: Record<Locale, Record<string, string>> = {
     'preview.pdf_desc': 'Con la versión premium, genera informes profesionales como este con 1 clic.',
     'preview.pdf_badge': 'EJEMPLO PDF',
     'preview.pdf_info': 'Informe generado con 12 carreras • 3 días de datos',
+
+    // SETTINGS
+    'settings.titulo': 'Configuraciones',
+    'settings.metas': 'Metas de Ganancia',
+    'settings.meta_dia': 'Meta diaria',
+    'settings.meta_semana': 'Meta semanal',
+    'settings.custos_fixos': 'Costos Fijos Mensuales',
+    'settings.custos_fixos_desc': 'Estos costos se prorratean por día trabajado y se muestran en el dashboard.',
+    'settings.manutencao': 'Mantenimiento',
+    'settings.seguro': 'Seguro',
+    'settings.ipva': 'IPVA + Licencia',
+    'settings.dias_trab': 'Días trabajados/mes',
+    'settings.custo_dia': 'Costo fijo por día',
+    'settings.custo_dia_desc': 'Basado en {dias} días trabajados por mes',
+    'settings.salvar': 'Guardar Configuraciones',
   },
 }
 

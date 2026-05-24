@@ -13,14 +13,16 @@ export default function RideForm({ onCalculate }: Props) {
   const [amount, setAmount] = useState('')
   const [kmDriven, setKmDriven] = useState('')
   const [fuelCost, setFuelCost] = useState('')
+  const [otherCosts, setOtherCosts] = useState('')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const a = parseFloat(amount)
     const k = parseFloat(kmDriven)
     const f = parseFloat(fuelCost)
+    const o = parseFloat(otherCosts) || 0
     if (!a || !k || !f) return
-    onCalculate({ amount: a, kmDriven: k, fuelCost: f })
+    onCalculate({ amount: a, kmDriven: k, fuelCost: f, otherCosts: o })
   }
 
   const isDisabled = !amount || !kmDriven || !fuelCost
@@ -73,6 +75,21 @@ export default function RideForm({ onCalculate }: Props) {
           onChange={e => setFuelCost(e.target.value)}
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-lg transition-all"
           required
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-400 mb-1">
+          {t('form.outros')}
+        </label>
+        <input
+          type="number"
+          step="0.01"
+          min="0"
+          placeholder={t('form.outros_ph')}
+          value={otherCosts}
+          onChange={e => setOtherCosts(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 outline-none text-lg transition-all"
         />
       </div>
 

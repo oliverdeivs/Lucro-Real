@@ -35,20 +35,33 @@ export default function ResultCard({ result, onSave, saved }: Props) {
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">{t('result.valor_bruto')}</span>
+      <div className="space-y-2 mb-4">
+        <div className="bg-white/60 rounded-xl p-3 flex items-center justify-between">
+          <span className="text-xs text-gray-400">{t('result.valor_bruto')}</span>
           <span className="text-sm font-bold">{formatCurrency(result.totalCost + result.profit, locale)}</span>
         </div>
+        <div className="bg-white/60 rounded-xl p-3 flex items-center justify-between">
+          <span className="text-xs text-gray-400">{t('result.combustivel')}</span>
+          <span className="text-sm font-medium text-warning">{formatCurrency(result.fuelCost, locale)}</span>
+        </div>
+        {result.otherCosts > 0 && (
+          <div className="bg-white/60 rounded-xl p-3 flex items-center justify-between">
+            <span className="text-xs text-gray-400">{t('result.outros')}</span>
+            <span className="text-sm font-medium text-orange-500">{formatCurrency(result.otherCosts, locale)}</span>
+          </div>
+        )}
+        <div className="bg-white/60 rounded-xl p-3 flex items-center justify-between border-t border-gray-100">
+          <span className="text-xs font-medium text-gray-500">{t('result.custo_total')}</span>
+          <span className="text-sm font-bold text-gray-900">{formatCurrency(result.totalCost, locale)}</span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-4">
         <div className="bg-white/60 rounded-xl p-3">
           <span className="text-xs text-gray-400 block">{t('result.margem')}</span>
           <span className={`text-sm font-bold ${isPositive ? 'text-profit' : 'text-loss'}`}>
             {result.percentage.toFixed(1)}%
           </span>
-        </div>
-        <div className="bg-white/60 rounded-xl p-3">
-          <span className="text-xs text-gray-400 block">{t('result.custo_total')}</span>
-          <span className="text-sm font-bold">{formatCurrency(result.totalCost, locale)}</span>
         </div>
         <div className="bg-white/60 rounded-xl p-3">
           <span className="text-xs text-gray-400 block">{t('result.custo_km')}</span>

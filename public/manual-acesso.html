@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>LucroReal — Manual de Acesso</title>
+<style>
+  @page { margin: 2cm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .cover {
+    text-align: center;
+    padding: 80px 0 60px;
+    border-bottom: 3px solid #009654;
+    margin-bottom: 40px;
+  }
+  .cover .logo {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #009654, #005E34);
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+  .cover h1 { font-size: 32px; margin-bottom: 8px; }
+  .cover p { color: #666; font-size: 16px; }
+  h2 {
+    font-size: 22px;
+    color: #009654;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e6f7f0;
+  }
+  h3 { font-size: 16px; margin: 24px 0 8px; color: #333; }
+  p, li { font-size: 14px; color: #444; margin-bottom: 8px; }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { margin-bottom: 4px; }
+  .step {
+    background: #f6faf9;
+    border-left: 4px solid #009654;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border-radius: 0 8px 8px 0;
+  }
+  .step strong { display: block; margin-bottom: 4px; color: #005E34; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  th { background: #009654; color: white; padding: 10px 12px; text-align: left; }
+  td { padding: 10px 12px; border-bottom: 1px solid #e0e0e0; }
+  .footer {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-top: 60px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+  }
+  .badge {
+    display: inline-block;
+    background: #e6f7f0;
+    color: #009654;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+  @media print {
+    body { padding: 0; }
+    .cover { padding: 60px 0 40px; }
+    .step { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="logo">LR</div>
+  <h1>LucroReal</h1>
+  <p>Calculadora de Lucro para Motoristas de Aplicativo</p>
+  <p style="margin-top:12px;font-size:13px;color:#999;">Manual de Acesso e Instruções</p>
+</div>
+
+<h2>O que é o LucroReal?</h2>
+<p>O LucroReal é uma ferramenta web que calcula em segundos o lucro real de cada corrida para motoristas de Uber, 99 e iFood. Basta informar o valor recebido, KM rodados e gasto com combustível para descobrir se a corrida valeu a pena.</p>
+
+<h2>Como Acessar</h2>
+<div class="step">
+  <strong>Passo 1</strong>
+  Após a confirmação do pagamento, você será redirecionado automaticamente para o dashboard ou pode acessar diretamente:
+  <br>
+  <a href="https://lucroreal.app" style="color:#009654;font-weight:700;">https://lucroreal.app</a>
+</div>
+
+<div class="step">
+  <strong>Passo 2</strong>
+  Faça seu primeiro cálculo clicando em <strong>"Calcular Meu Lucro Agora"</strong> e preenchendo os campos: valor recebido, KM rodados e combustível gasto.
+</div>
+
+<div class="step">
+  <strong>Passo 3</strong>
+  Salve suas corridas no histórico e acompanhe seu desempenho no dashboard com gráficos e estatísticas.
+</div>
+
+<h2>Funcionalidades</h2>
+<table>
+  <tr><th>Funcionalidade</th><th>Descrição</th></tr>
+  <tr><td>Calculadora Ilimitada</td><td>Calcule o lucro de quantas corridas quiser</td></tr>
+  <tr><td>Score A até F</td><td>Nota para cada corrida baseada na margem de lucro</td></tr>
+  <tr><td>Custo por KM</td><td>Saiba exatamente quanto cada km rodado custa</td></tr>
+  <tr><td>Dashboard</td><td>Gráficos de lucro por dia, estatísticas e histórico</td></tr>
+  <tr><td>Exportação PDF</td><td>Gere relatórios profissionais com 1 clique</td></tr>
+  <tr><td>Modo Offline</td><td>Funciona sem internet após carregar a página</td></tr>
+  <tr><td>Suporte a 2 idiomas</td><td>Português 🇧🇷 e Espanhol 🇲🇽</td></tr>
+</table>
+
+<h2>Interpretando o Score</h2>
+<table>
+  <tr><th>Nota</th><th>Margem</th><th>Significado</th></tr>
+  <tr><td><span class="badge">A</span></td><td>≥ 50%</td><td>Corrida excelente! Lucro alto.</td></tr>
+  <tr><td><span class="badge" style="background:#d4edda;">B</span></td><td>≥ 30%</td><td>Boa corrida. Vale a pena.</td></tr>
+  <tr><td><span class="badge" style="background:#fff3cd;">C</span></td><td>≥ 10%</td><td>Margem razoável. Dá para melhorar.</td></tr>
+  <tr><td><span class="badge" style="background:#fff3cd;">D</span></td><td>≥ 0%</td><td>Margem baixa. Quase no prejuízo.</td></tr>
+  <tr><td><span class="badge" style="background:#f8d7da;color:#dc3545;">F</span></td><td>&lt; 0%</td><td>Prejuízo. Evite corridas assim.</td></tr>
+</table>
+
+<h2>Compatibilidade</h2>
+<p>Funciona em qualquer dispositivo com navegador moderno:</p>
+<ul>
+  <li><strong>Celular:</strong> Android (Chrome, Samsung Internet) e iPhone (Safari)</li>
+  <li><strong>Computador:</strong> Chrome, Firefox, Edge, Safari</li>
+  <li><strong>Funciona offline</strong> após carregar a página uma vez</li>
+  <li>Não ocupa espaço de instalação</li>
+  <li>Pode ser adicionado à tela inicial como um app</li>
+</ul>
+
+<h2>Suporte</h2>
+<p>Em caso de dúvidas, entre em contato pelo e-mail: <strong>suporte@lucroreal.app</strong></p>
+
+<h2>Termos de Uso</h2>
+<p>Ao adquirir o LucroReal, você recebe acesso vitalício à ferramenta. O pagamento é único. Não é permitida a redistribuição do acesso. Garantia incondicional de 7 dias.</p>
+
+<div class="footer">
+  LucroReal — lucroreal.app<br>
+  © 2026 — Todos os direitos reservados
+</div>
+
+</body>
+</html>

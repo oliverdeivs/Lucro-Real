@@ -25,4 +25,10 @@ export interface DaySummary {
 export interface AppSettings {
   fuelPricePerLiter: number
   carConsumptionKmPerLiter: number
+  monthlyMaintenance: number
+  monthlyInsurance: number
+  monthlyTax: number
+  daysWorkingPerMonth: number
+  dailyGoal: number
+  weeklyGoal: number
 }
