@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { setPremium } from '@/lib/storage'
 import { useTranslation } from '@/lib/i18n'
@@ -12,52 +12,67 @@ function ObrigadoContent() {
   const [status, setStatus] = useState<'checking' | 'valid' | 'invalid'>('checking')
   const [countdown, setCountdown] = useState(5)
 
+  const fireConfetti = useCallback(() => {
+    import('canvas-confetti').then(({ default: confetti }) => {
+      const duration = 3000
+      const end = Date.now() + duration
+      const frame = () => {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#059669', '#10B981', '#34D399'],
+        })
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#059669', '#10B981', '#34D399'],
+        })
+        if (Date.now() < end) requestAnimationFrame(frame)
+      }
+      frame()
+    })
+  }, [])
+
+  const startRedirect = useCallback(() => {
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          router.push('/dashboard')
+        }
+        return prev - 1
+      })
+    }, 1000)
+  }, [router])
+
   useEffect(() => {
     const token = searchParams.get('token')
+    const isTestMode = process.env.NODE_ENV === 'development' && searchParams.get('test') === '1'
+
+    if (isTestMode) {
+      setPremium()
+      setStatus('valid')
+      fireConfetti()
+      startRedirect()
+      return
+    }
 
     fetch(`/api/verify-token?token=${token}`)
       .then(res => {
         if (!res.ok) throw new Error('invalid')
         setPremium()
         setStatus('valid')
-        import('canvas-confetti').then(({ default: confetti }) => {
-          const duration = 3000
-          const end = Date.now() + duration
-          const frame = () => {
-            confetti({
-              particleCount: 3,
-              angle: 60,
-              spread: 55,
-              origin: { x: 0 },
-              colors: ['#059669', '#10B981', '#34D399'],
-            })
-            confetti({
-              particleCount: 3,
-              angle: 120,
-              spread: 55,
-              origin: { x: 1 },
-              colors: ['#059669', '#10B981', '#34D399'],
-            })
-            if (Date.now() < end) requestAnimationFrame(frame)
-          }
-          frame()
-        })
-
-        const timer = setInterval(() => {
-          setCountdown(prev => {
-            if (prev <= 1) {
-              clearInterval(timer)
-              router.push('/dashboard')
-            }
-            return prev - 1
-          })
-        }, 1000)
-        return () => clearInterval(timer)
+        fireConfetti()
+        startRedirect()
       })
       .catch(() => {
         setStatus('invalid')
       })
-  }, [searchParams, router])
+  }, [searchParams, router, fireConfetti, startRedirect])
 
   if (status === 'invalid') {
     return (

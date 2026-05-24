@@ -535,13 +535,16 @@ const LanguageContext = createContext<LanguageContextValue>({
 })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('pt')
-  const [mounted, setMounted] = useState(false)
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    if (typeof window !== 'undefined') {
+      return getLocaleFromPath()
+    }
+    return 'pt'
+  })
 
   useEffect(() => {
     const detected = getLocaleFromPath()
     setLocaleState(detected)
-    setMounted(true)
   }, [])
 
   const setLocale = (l: Locale) => {
@@ -554,10 +557,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     setLocale,
     t: (key: string, vars?: Record<string, string | number>) => t(locale, key, vars),
     plural: (key: string, count: number, vars?: Record<string, string | number>) => plural(locale, key, count, { ...vars, count }),
-  }
-
-  if (!mounted) {
-    return <>{children}</>
   }
 
   return (

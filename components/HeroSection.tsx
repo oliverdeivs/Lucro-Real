@@ -31,35 +31,35 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-white pt-8 pb-28 md:pb-36">
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-brand-100/60 via-emerald-50/40 to-transparent rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-50/50 to-transparent rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)] pointer-events-none" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-[#064E3B] via-[#059669] to-[#10B981] pt-8 pb-28 md:pb-36">
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/[0.08] rounded-full blur-3xl translate-y-1/4 -translate-x-1/4 pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/[0.04] rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4">
         <nav className="flex items-center justify-between pt-6">
           <a href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-md shadow-brand-200/40">
+            <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-black/10">
               LR
             </div>
-            <span className="text-base font-bold text-gray-900">LucroReal</span>
+            <span className="text-base font-bold text-white">LucroReal</span>
           </a>
           <div className="flex items-center gap-4">
-            <a href="/calcular" className="hidden sm:inline-flex text-sm text-gray-400 hover:text-gray-900 transition-colors">
+            <a href="/calcular" className="hidden sm:inline-flex text-sm text-white/60 hover:text-white transition-colors">
               {t('hero.nav_calc')}
             </a>
-            <a href="#depoimentos" className="hidden sm:inline-flex text-sm text-gray-400 hover:text-gray-900 transition-colors">
+            <a href="#depoimentos" className="hidden sm:inline-flex text-sm text-white/60 hover:text-white transition-colors">
               {t('hero.nav_dep')}
             </a>
             <button
               onClick={toggleLang}
-              className="px-3 py-1.5 text-xs font-bold text-gray-400 hover:text-brand-600 border border-gray-200 rounded-xl hover:border-brand-300 transition-all uppercase tracking-widest"
+              className="px-3 py-1.5 text-xs font-bold text-white/60 hover:text-white border border-white/20 rounded-xl hover:border-white/50 transition-all uppercase tracking-widest"
             >
               {locale === 'pt' ? 'ES' : 'PT'}
             </button>
             <a
               href="#preco"
-              className="px-5 py-2.5 bg-gray-900 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition-all shadow-lg shadow-gray-900/10"
+              className="px-5 py-2.5 bg-white text-[#064E3B] text-sm font-semibold rounded-xl hover:bg-white/90 transition-all shadow-lg shadow-black/10"
             >
               {t('hero.comprar_btn')}
             </a>
@@ -67,32 +67,32 @@ export default function HeroSection() {
         </nav>
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center min-h-[calc(100vh-8rem)]">
           <div className="pt-16 lg:pt-24 animate-fadeInUp">
-            <div className="inline-flex items-center gap-2 bg-brand-50 border border-brand-100 text-brand-700 text-sm font-medium px-4 py-1.5 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse" />
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-sm font-medium px-4 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-pulse" />
               {t('hero.badge')}
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-gray-900 leading-[0.95] tracking-tighter mb-6">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] tracking-tighter mb-6">
               {t('hero.title1')}{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-100">
                 {t('hero.title2')}
               </span>
               <br />
               <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl">{t('hero.title3')}</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-500 max-w-lg mb-10 leading-relaxed">
-              {t('hero.text1')} <strong className="text-gray-900">{t('hero.text2')}</strong>,{' '}
+            <p className="text-lg md:text-xl text-white/70 max-w-lg mb-10 leading-relaxed">
+              {t('hero.text1')} <strong className="text-white">{t('hero.text2')}</strong>,{' '}
               {t('hero.text3')}{' '}
-              <strong className="text-red-500">{t('hero.text4')}</strong> {t('hero.text5')}
+              <strong className="text-red-300">{t('hero.text4')}</strong> {t('hero.text5')}
               <br />
-              {t('hero.text6')} <strong className="text-brand-600">{t('hero.text7')}</strong>.
+              {t('hero.text6')} <strong className="text-emerald-300">{t('hero.text7')}</strong>.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href="/calcular"
-                className="group px-8 py-4 bg-gray-900 text-white font-semibold rounded-2xl hover:bg-gray-800 transition-all duration-300 shadow-xl shadow-gray-900/10 hover:shadow-2xl hover:shadow-gray-900/20 text-lg inline-flex items-center gap-2"
+                className="group px-8 py-4 bg-white text-[#064E3B] font-semibold rounded-2xl hover:bg-white/90 transition-all duration-300 shadow-xl shadow-black/10 hover:shadow-2xl hover:shadow-black/20 text-lg inline-flex items-center gap-2"
               >
                 {t('hero.cta')}
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,21 +101,21 @@ export default function HeroSection() {
               </a>
               <a
                 href="#como-funciona"
-                className="px-8 py-4 bg-gray-50 text-gray-700 font-semibold rounded-2xl border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-all duration-300 text-lg"
+                className="px-8 py-4 bg-white/10 text-white font-semibold rounded-2xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 text-lg"
               >
                 {t('hero.como')}
               </a>
             </div>
 
-            <div className="flex items-center gap-10 mt-12 pt-8 border-t border-gray-100">
+            <div className="flex items-center gap-10 mt-12 pt-8 border-t border-white/10">
               {[
                 { value: '1.5M+', label: t('hero.stat1') },
                 { value: '67%', label: t('hero.stat2') },
                 { value: '9h+', label: t('hero.stat3') },
               ].map(stat => (
                 <div key={stat.label}>
-                  <div className="text-3xl font-black text-gray-900 tracking-tight">{stat.value}</div>
-                  <div className="text-sm text-gray-400 mt-0.5">{stat.label}</div>
+                  <div className="text-3xl font-black text-white tracking-tight">{stat.value}</div>
+                  <div className="text-sm text-white/50 mt-0.5">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -123,11 +123,11 @@ export default function HeroSection() {
 
           <div className="hidden lg:flex justify-center animate-fadeInUp delay-200 pt-16 lg:pt-24">
             <div className="relative">
-              <div className="absolute -inset-10 bg-gradient-to-r from-brand-500/15 via-emerald-500/15 to-blue-500/15 rounded-full blur-3xl" />
+              <div className="absolute -inset-10 bg-white/10 rounded-full blur-3xl" />
 
-              <div className="relative w-[300px] bg-gray-900 rounded-[3rem] p-3 shadow-2xl shadow-gray-900/20">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[30px] bg-gray-900 rounded-b-2xl z-10 flex items-center justify-center">
-                  <div className="w-20 h-1.5 bg-gray-700 rounded-full" />
+              <div className="relative w-[300px] bg-black/40 backdrop-blur-sm rounded-[3rem] p-3 shadow-2xl shadow-black/30">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[30px] bg-black/40 rounded-b-2xl z-10 flex items-center justify-center">
+                  <div className="w-20 h-1.5 bg-white/20 rounded-full" />
                 </div>
 
                 <div className="w-[276px] h-[598px] bg-white rounded-[2.25rem] overflow-hidden relative">
@@ -202,7 +202,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="flex justify-center mt-2">
-                  <div className="w-[100px] h-[3px] bg-gray-600 rounded-full" />
+                  <div className="w-[100px] h-[3px] bg-white/20 rounded-full" />
                 </div>
               </div>
             </div>
