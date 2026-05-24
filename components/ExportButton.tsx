@@ -16,7 +16,7 @@ export default function ExportButton({ summaries }: Props) {
 
   const handleExport = () => {
     if (!premium) {
-      window.open('https://hotmart.com/SEU-LINK-AQUI', '_blank')
+      window.open('https://pay.hotmart.com/Q105978279A', '_blank')
       return
     }
     generatePDF(summaries, locale)

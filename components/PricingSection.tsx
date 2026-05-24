@@ -56,7 +56,7 @@ export default function PricingSection() {
             </ul>
 
             <a
-              href="https://hotmart.com/SEU-LINK-AQUI"
+              href="https://pay.hotmart.com/Q105978279A"
               className="group block w-full py-4 bg-white text-brand-900 font-bold text-center rounded-2xl hover:bg-white/90 transition-all duration-300 shadow-lg shadow-black/15 hover:shadow-xl hover:shadow-black/25 text-base"
             >
               {t('pricing.cta')}
