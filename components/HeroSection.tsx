@@ -12,6 +12,8 @@ export default function HeroSection() {
     setLocale(next)
   }
 
+  const nextLocale = locales[(locales.indexOf(locale) + 1) % locales.length] as Locale
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 pt-8 pb-28 md:pb-36">
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
@@ -37,7 +39,7 @@ export default function HeroSection() {
               onClick={toggleLang}
               className="px-3 py-1.5 text-xs font-bold text-white/60 hover:text-white border border-white/20 rounded-xl hover:border-white/50 transition-all uppercase tracking-widest"
             >
-              {locale === 'pt' ? 'ES' : 'PT'}
+              {nextLocale.toUpperCase()}
             </button>
             <a
               href="https://pay.hotmart.com/Q105978279A"

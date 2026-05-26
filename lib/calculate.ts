@@ -6,8 +6,7 @@ export interface CalcInput {
   kmDriven: number
   fuelCost: number
   otherCosts?: number
-  fuelPricePerLiter?: number
-  carConsumption?: number
+  durationMinutes?: number
 }
 
 export interface CalcResult {
@@ -19,16 +18,22 @@ export interface CalcResult {
   status: RideStatus
   percentage: number
   score: string
+  durationMinutes?: number
+  profitPerHour?: number
 }
 
 export function calculateProfit(input: CalcInput): CalcResult {
   const { amount, kmDriven, fuelCost } = input
   const otherCosts = input.otherCosts ?? 0
+  const durationMinutes = input.durationMinutes
 
   const totalCost = fuelCost + otherCosts
   const profit = amount - totalCost
   const costPerKm = kmDriven > 0 ? totalCost / kmDriven : 0
   const percentage = amount > 0 ? (profit / amount) * 100 : 0
+  const profitPerHour = durationMinutes && durationMinutes > 0
+    ? (profit / durationMinutes) * 60
+    : undefined
 
   let status: RideStatus = 'break_even'
   if (profit > 0) status = 'profit'
@@ -42,7 +47,7 @@ export function calculateProfit(input: CalcInput): CalcResult {
   else if (margin >= 0) score = 'D'
   else score = 'F'
 
-  return { profit, costPerKm, totalCost, fuelCost, otherCosts, status, percentage, score }
+  return { profit, costPerKm, totalCost, fuelCost, otherCosts, status, percentage, score, durationMinutes, profitPerHour }
 }
 
 export function calculateDailyFixedCost(settings: AppSettings): number {

@@ -84,16 +84,16 @@ function ObrigadoContent() {
   if (status === 'invalid') {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
-        <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-20 h-20 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
           <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
         </div>
-        <h1 className="text-3xl font-black text-gray-900 mb-3">Token inválido</h1>
-        <p className="text-gray-500 mb-8">
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-3">Token inválido</h1>
+        <p className="text-gray-500 dark:text-gray-400 mb-8">
           O link de acesso não é válido. Certifique-se de que o pagamento foi confirmado e tente novamente.
         </p>
-        <a href="/" className="px-8 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all">
+        <a href="/" className="px-8 py-3 bg-gray-900 dark:bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-800 dark:hover:bg-gray-700 transition-all">
           Voltar para o início
         </a>
       </div>
@@ -103,54 +103,54 @@ function ObrigadoContent() {
   if (status === 'checking') {
     return (
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
-        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
-          <svg className="w-10 h-10 text-gray-400 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+          <svg className="w-10 h-10 text-gray-400 dark:text-gray-500 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </div>
-        <h1 className="text-3xl font-black text-gray-900 mb-3">Verificando pagamento...</h1>
-        <p className="text-gray-400">Aguarde um momento enquanto confirmamos seu acesso.</p>
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-3">Verificando pagamento...</h1>
+        <p className="text-gray-400 dark:text-gray-500">Aguarde um momento enquanto confirmamos seu acesso.</p>
       </div>
     )
   }
 
   return (
     <div className="max-w-xl mx-auto px-4 py-24 text-center">
-      <div className="w-20 h-20 bg-gradient-to-br from-brand-500 to-brand-700 rounded-full flex items-center justify-center mx-auto mb-6">
+      <div className="w-20 h-20 bg-gradient-to-br from-brand-500 to-brand-700 dark:from-brand-600 dark:to-brand-800 rounded-full flex items-center justify-center mx-auto mb-6">
         <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
         </svg>
       </div>
 
-      <h1 className="text-3xl font-black text-gray-900 mb-3">
+      <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-3">
         {t('obrigado.title')}
       </h1>
 
-      <p className="text-gray-500 mb-4">
+      <p className="text-gray-500 dark:text-gray-400 mb-4">
         {t('obrigado.desc')}
       </p>
 
-      <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-6 text-left">
-        <p className="text-sm text-brand-800 font-medium mb-1">Seu acesso foi liberado!</p>
-        <p className="text-xs text-brand-600">
+      <div className="bg-brand-50 dark:bg-brand-900/50 border border-brand-200 dark:border-brand-800 rounded-xl p-4 mb-6 text-left">
+        <p className="text-sm text-brand-800 dark:text-brand-200 font-medium mb-1">Seu acesso foi liberado!</p>
+        <p className="text-xs text-brand-600 dark:text-brand-400">
           Este dispositivo agora tem acesso Premium. Para usar em outro dispositivo, acesse Configurações &gt; Restaurar Premium e informe o email usado na compra.
         </p>
       </div>
 
-      <div className="text-sm text-gray-400 mb-8">
+      <div className="text-sm text-gray-400 dark:text-gray-500 mb-8">
         {t('obrigado.redirect', { countdown })}
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 justify-center">
         <button
           onClick={() => router.push('/dashboard')}
-          className="px-8 py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:from-brand-700 hover:to-brand-600 transition-all shadow-lg shadow-brand-200"
+          className="px-8 py-3 bg-gradient-to-r from-brand-600 to-brand-500 dark:from-brand-700 dark:to-brand-800 text-white font-semibold rounded-xl hover:from-brand-700 hover:to-brand-600 dark:hover:from-brand-800 dark:hover:to-brand-900 transition-all shadow-lg shadow-brand-200 dark:shadow-black/30"
         >
           {t('obrigado.cta')}
         </button>
         <a
           href="/calcular"
-          className="px-8 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-all"
+          className="px-8 py-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
         >
           {t('nav.calculadora')}
         </a>
@@ -163,13 +163,13 @@ export default function ObrigadoPage() {
   return (
     <Suspense fallback={
       <div className="max-w-xl mx-auto px-4 py-24 text-center">
-        <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
-          <svg className="w-10 h-10 text-gray-400 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 animate-pulse">
+          <svg className="w-10 h-10 text-gray-400 dark:text-gray-500 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </div>
-        <h1 className="text-3xl font-black text-gray-900 mb-3">Verificando pagamento...</h1>
-        <p className="text-gray-400">Aguarde um momento enquanto confirmamos seu acesso.</p>
+        <h1 className="text-3xl font-black text-gray-900 dark:text-white mb-3">Verificando pagamento...</h1>
+        <p className="text-gray-400 dark:text-gray-500">Aguarde um momento enquanto confirmamos seu acesso.</p>
       </div>
     }>
       <ObrigadoContent />

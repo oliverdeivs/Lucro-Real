@@ -60,33 +60,35 @@ export default function CalcularPage() {
 
   const handleCalculate = (input: CalcInput) => {
     setLastInput(input)
-    setResult(calculateProfit(input))
+    const calcResult = calculateProfit(input)
+    setResult(calcResult)
     setSaved(false)
-  }
 
-  const handleSave = () => {
-    if (!result || !lastInput) return
-    if (saved) return
-
-    if (!canCalculate()) {
-      return
-    }
+    if (!canCalculate()) return
 
     const ride: Ride = {
       id: crypto.randomUUID(),
       date: new Date().toISOString(),
-      amount: lastInput.amount,
-      kmDriven: lastInput.kmDriven,
-      fuelCost: lastInput.fuelCost,
-      profit: result.profit,
-      costPerKm: result.costPerKm,
-      status: result.status,
+      amount: input.amount,
+      kmDriven: input.kmDriven,
+      fuelCost: input.fuelCost,
+      profit: calcResult.profit,
+      costPerKm: calcResult.costPerKm,
+      status: calcResult.status,
+      durationMinutes: input.durationMinutes,
+      profitPerHour: calcResult.profitPerHour,
     }
 
     saveRide(ride)
     incrementCalcCount()
     setSaved(true)
     loadData()
+
+    setTimeout(() => {
+      setResult(null)
+      setLastInput(null)
+      setSaved(false)
+    }, 1200)
   }
 
   const remaining = getRemainingFreeCalcs()
@@ -98,24 +100,26 @@ export default function CalcularPage() {
   const premium = mounted ? _premium : false
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <a href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-brand-600 transition-colors mb-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              {t('hero.como')}
-            </a>
-            <h1 className="text-2xl sm:text-3xl font-black text-gray-900">
-              {t('page.calc_title1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-500">{t('page.calc_title2')}</span> {t('page.calc_title3')}
+            {!premium && (
+              <a href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 dark:text-gray-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors mb-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                {t('hero.como')}
+              </a>
+            )}
+            <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">
+              {t('page.calc_title1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-500 dark:from-brand-400 dark:to-emerald-400">{t('page.calc_title2')}</span> {t('page.calc_title3')}
             </h1>
           </div>
           <div className="flex items-center gap-2 self-end sm:self-auto">
             <button
               onClick={() => setShowSettings(true)}
-              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-500 hover:text-brand-600 border border-gray-200 rounded-lg hover:border-brand-300 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-brand-300 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -124,12 +128,12 @@ export default function CalcularPage() {
               {t('settings.titulo')}
             </button>
             <div className={`px-4 py-2 rounded-xl text-sm font-bold border transition-colors ${
-              !mounted ? 'bg-brand-50 text-brand-600 border-brand-100' :
+              !mounted ? 'bg-brand-50 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 border-brand-100 dark:border-brand-800' :
               premium
-                ? 'bg-profit/10 text-profit border-profit/30'
+                ? 'bg-profit/10 dark:bg-profit/20 text-profit border-profit/30'
                 : freeLeft <= 1
-                ? 'bg-warning/10 text-warning border-warning/30'
-                : 'bg-brand-50 text-brand-600 border-brand-100'
+                ? 'bg-warning/10 dark:bg-warning/20 text-warning border-warning/30'
+                : 'bg-brand-50 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 border-brand-100 dark:border-brand-800'
             }`}>
               {!mounted
                 ? '...'
@@ -142,25 +146,20 @@ export default function CalcularPage() {
 
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
               <RideForm onCalculate={handleCalculate} />
             </div>
 
             {result && (
               <div className="mt-4 space-y-3">
-                <ResultCard result={result} onSave={handleSave} saved={saved} />
+                <ResultCard result={result} saved={saved} />
                 {saved && (
-                  <p className="text-xs text-center text-profit font-medium">
+                  <p className="text-xs text-center text-profit font-medium animate-fadeIn">
+                    <svg className="w-3.5 h-3.5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                    </svg>
                     {t('calc.saved')}
                   </p>
-                )}
-                {saved && !blocked && (
-                  <button
-                    onClick={() => { setResult(null); setLastInput(null); setSaved(false) }}
-                    className="w-full py-2.5 text-sm text-brand-600 font-semibold border-2 border-brand-200 rounded-xl hover:bg-brand-50 transition-all"
-                  >
-                    {t('calc.try_again')}
-                  </button>
                 )}
               </div>
             )}
@@ -178,7 +177,7 @@ export default function CalcularPage() {
                 </p>
                 <a
                   href="https://pay.hotmart.com/Q105978279A"
-                  className="inline-block px-8 py-3 bg-white text-brand-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-lg"
+                  className="inline-block px-8 py-3 bg-white dark:bg-gray-800 text-brand-700 dark:text-brand-300 font-bold rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 transition-all shadow-lg"
                 >
                   {t('calc.limit_cta')}
                 </a>
@@ -188,38 +187,38 @@ export default function CalcularPage() {
 
           <div className="lg:col-span-3 space-y-4">
             {summaries.length === 0 && !result ? (
-              <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-8 text-center">
                 <div className="mb-4">
-                  <svg className="w-12 h-12 mx-auto text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-12 h-12 mx-auto text-brand-300 dark:text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{t('calc.preview_title')}</h3>
-                <p className="text-sm text-gray-400 max-w-sm mx-auto leading-relaxed">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('calc.preview_title')}</h3>
+                <p className="text-sm text-gray-400 dark:text-gray-500 max-w-sm mx-auto leading-relaxed">
                   {t('calc.preview_desc')}
                 </p>
               </div>
             ) : (
               <>
-                <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 shadow-sm">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-bold text-gray-900">{t('stats.lucro_total')}</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-white">{t('stats.lucro_total')}</h3>
                     <span className={`text-2xl font-black ${summaries.reduce((s, d) => s + d.totalProfit, 0) >= 0 ? 'text-profit' : 'text-loss'}`}>
                       {formatCurrency(summaries.reduce((s, d) => s + d.totalProfit, 0), locale)}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-3 mb-4">
-                    <div className="bg-gray-50 rounded-xl p-3 text-center">
-                      <div className="text-xs text-gray-400">{t('calc.rides_total')}</div>
-                      <div className="text-lg font-bold text-gray-900">{rides.length}</div>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-center">
+                      <div className="text-xs text-gray-400 dark:text-gray-500">{t('calc.rides_total')}</div>
+                      <div className="text-lg font-bold text-gray-900 dark:text-white">{rides.length}</div>
                     </div>
-                    <div className="bg-gray-50 rounded-xl p-3 text-center">
-                      <div className="text-xs text-gray-400">{t('stats.km')}</div>
-                      <div className="text-lg font-bold text-gray-900">{summaries.reduce((s, d) => s + d.totalKm, 0).toFixed(1)}</div>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-center">
+                      <div className="text-xs text-gray-400 dark:text-gray-500">{t('stats.km')}</div>
+                      <div className="text-lg font-bold text-gray-900 dark:text-white">{summaries.reduce((s, d) => s + d.totalKm, 0).toFixed(1)}</div>
                     </div>
-                    <div className="bg-gray-50 rounded-xl p-3 text-center">
-                      <div className="text-xs text-gray-400">{t('calc.avg_per_ride')}</div>
-                      <div className="text-lg font-bold text-gray-900">
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 text-center">
+                      <div className="text-xs text-gray-400 dark:text-gray-500">{t('calc.avg_per_ride')}</div>
+                      <div className="text-lg font-bold text-gray-900 dark:text-white">
                         {formatCurrency(
                           rides.length > 0
                             ? summaries.reduce((s, d) => s + d.totalProfit, 0) / rides.length
@@ -233,7 +232,7 @@ export default function CalcularPage() {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3">{t('calc.recent')}</h3>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-3">{t('calc.recent')}</h3>
                   <RideHistory rides={rides} onDelete={loadData} />
                 </div>
               </>

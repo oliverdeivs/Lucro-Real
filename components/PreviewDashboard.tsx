@@ -44,11 +44,11 @@ export default function PreviewDashboard() {
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div className="space-y-4">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-black/20 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg shadow-black/20 p-6">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 rounded-lg flex items-center justify-center text-white font-bold text-xs">LR</div>
-                  <span className="font-bold text-gray-900">Dashboard</span>
+                  <div className="w-8 h-8 bg-gradient-to-br from-brand-500 to-brand-700 dark:from-brand-600 dark:to-brand-800 rounded-lg flex items-center justify-center text-white font-bold text-xs">LR</div>
+                  <span className="font-bold text-gray-900 dark:text-white">Dashboard</span>
                 </div>
                 <div className="flex gap-1">
                   <div className="w-2 h-2 rounded-full bg-red-400" />
@@ -59,12 +59,12 @@ export default function PreviewDashboard() {
 
               <div className="grid grid-cols-3 gap-2 mb-4">
                 {[
-                  { label: t('stats.corridas'), value: '12', color: 'text-brand-600' },
+                  { label: t('stats.corridas'), value: '12', color: 'text-brand-600 dark:text-brand-400' },
                   { label: 'Lucro', value: `${cfg.symbol}${totalProfit.toFixed(0)}`, color: totalProfit >= 0 ? 'text-profit' : 'text-loss' },
-                  { label: t('stats.faturamento'), value: `${cfg.symbol}${sampleRides.reduce((s, r) => s + r.amount, 0).toFixed(0)}`, color: 'text-gray-900' },
+                  { label: t('stats.faturamento'), value: `${cfg.symbol}${sampleRides.reduce((s, r) => s + r.amount, 0).toFixed(0)}`, color: 'text-gray-900 dark:text-white' },
                 ].map(s => (
-                  <div key={s.label} className="bg-gray-50 rounded-xl p-3">
-                    <div className="text-[10px] text-gray-400 mb-0.5">{s.label}</div>
+                  <div key={s.label} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-3">
+                    <div className="text-[10px] text-gray-400 dark:text-gray-500 mb-0.5">{s.label}</div>
                     <div className={`text-sm font-bold ${s.color}`}>{s.value}</div>
                   </div>
                 ))}
@@ -77,23 +77,23 @@ export default function PreviewDashboard() {
                       className={`w-full rounded-t ${r.profit >= 0 ? 'bg-profit' : 'bg-loss'} transition-all`}
                       style={{ height: `${Math.max(8, Math.abs(r.profit) * 2)}px` }}
                     />
-                    <span className="text-[9px] text-gray-400">D{i + 1}</span>
+                    <span className="text-[9px] text-gray-400 dark:text-gray-500">D{i + 1}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg shadow-black/20 p-6">
-              <h4 className="text-sm font-bold text-gray-900 mb-3">{t('calc.recent')}</h4>
+            <div className="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg shadow-black/20 p-6">
+              <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3">{t('calc.recent')}</h4>
               <div className="space-y-2">
                 {sampleRides.slice(0, 4).map((r, i) => (
-                  <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                  <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 dark:border-gray-800 last:border-0">
                     <div className="flex items-center gap-2">
                       <div className={`w-2 h-2 rounded-full ${r.type === 'profit' ? 'bg-profit' : 'bg-loss'}`} />
-                      <span className="text-xs font-medium text-gray-900">{cfg.symbol}{r.amount.toFixed(2)}</span>
+                      <span className="text-xs font-medium text-gray-900 dark:text-white">{cfg.symbol}{r.amount.toFixed(2)}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-[10px] text-gray-400">{r.km} km</span>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500">{r.km} km</span>
                       <span className={`text-xs font-bold ${r.type === 'profit' ? 'text-profit' : 'text-loss'}`}>
                         {r.profit >= 0 ? '+' : ''}{cfg.symbol}{Math.abs(r.profit).toFixed(2)}
                       </span>

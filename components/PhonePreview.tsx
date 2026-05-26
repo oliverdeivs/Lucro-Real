@@ -51,7 +51,7 @@ export default function PhonePreview() {
                 </div>
               </div>
 
-              <button className="w-full py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-[11px] font-bold rounded-xl text-center shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 transition-shadow">
+              <button className="w-full py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 dark:from-brand-700 dark:to-brand-800 text-white text-[11px] font-bold rounded-xl text-center shadow-lg shadow-brand-500/30 dark:shadow-black/30 hover:shadow-brand-500/40 dark:hover:shadow-black/40 transition-shadow">
                 {t('form.calcular')}
               </button>
 

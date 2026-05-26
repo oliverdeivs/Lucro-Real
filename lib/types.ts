@@ -9,6 +9,8 @@ export interface Ride {
   profit: number
   costPerKm: number
   status: RideStatus
+  durationMinutes?: number
+  profitPerHour?: number
   note?: string
 }
 

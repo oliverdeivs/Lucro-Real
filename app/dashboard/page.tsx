@@ -88,7 +88,7 @@ export default function DashboardPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">{t('dash.title')}</h1>
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-400 dark:text-gray-500 text-sm">
             {plural('dash.corridas_count', filteredRides.length)} {plural('dash.registered', filteredRides.length)}
           </p>
         </div>
@@ -111,14 +111,14 @@ export default function DashboardPage() {
                   )
                 })}
               </select>
-              <svg className="w-3 h-3 absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3 h-3 absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
           )}
           <button
             onClick={() => setShowSettings(true)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-500 hover:text-brand-600 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-brand-300 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-brand-300 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -140,7 +140,7 @@ export default function DashboardPage() {
                   </button>
                   <button
                     onClick={() => setShowClearConfirm(false)}
-                    className="px-3 py-2 text-xs bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-3 py-2 text-xs bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                   >
                     {t('dash.cancelar')}
                   </button>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
               ) : (
                 <button
                   onClick={() => setShowClearConfirm(true)}
-                  className="px-3 py-2 text-xs text-gray-400 hover:text-loss border border-gray-200 dark:border-gray-700 rounded-lg hover:border-loss transition-colors"
+                  className="px-3 py-2 text-xs text-gray-400 dark:text-gray-500 hover:text-loss border border-gray-200 dark:border-gray-700 rounded-lg hover:border-loss transition-colors"
                 >
                   {t('dash.limpar_dados')}
                 </button>
@@ -160,7 +160,7 @@ export default function DashboardPage() {
 
       {prevMonth && variation !== 0 && (
         <div className={`mb-6 rounded-xl px-4 py-3 text-sm flex items-center gap-2 ${
-          variation >= 0 ? 'bg-profit/10 text-profit' : 'bg-loss/10 text-loss'
+          variation >= 0 ? 'bg-profit/10 dark:bg-profit/20 text-profit' : 'bg-loss/10 dark:bg-loss/20 text-loss'
         }`}>
           <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {variation >= 0 ? (

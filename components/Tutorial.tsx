@@ -47,37 +47,37 @@ export default function Tutorial({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
         <div className="w-16 h-16 bg-gradient-to-br from-brand-500 to-emerald-500 rounded-2xl flex items-center justify-center text-white mx-auto mb-4 shadow-lg">
           {current.icon}
         </div>
 
-        <h2 className="text-xl font-black text-gray-900 mb-2">{step === 1 ? t('tutorial.titulo') : ''}</h2>
-        <p className="text-sm text-gray-500 mb-1">{step === 1 ? t('tutorial.desc') : ''}</p>
+        <h2 className="text-xl font-black text-gray-900 dark:text-white mb-2">{step === 1 ? t('tutorial.titulo') : ''}</h2>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{step === 1 ? t('tutorial.desc') : ''}</p>
 
         <div className="my-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-2">{current.title}</h3>
-          <p className="text-sm text-gray-500 leading-relaxed">{current.desc}</p>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{current.title}</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{current.desc}</p>
         </div>
 
         <div className="flex justify-center gap-2 mb-6">
           {[1, 2, 3].map(s => (
-            <div key={s} className={`w-2.5 h-2.5 rounded-full transition-all ${s === step ? 'bg-brand-500 w-6' : 'bg-gray-300'}`} />
+            <div key={s} className={`w-2.5 h-2.5 rounded-full transition-all ${s === step ? 'bg-brand-500 w-6' : 'bg-gray-300 dark:bg-gray-700'}`} />
           ))}
         </div>
 
         <div className="flex gap-3">
           <button
             onClick={handleFinish}
-            className="flex-1 py-2.5 text-sm text-gray-400 font-medium rounded-xl hover:bg-gray-50 transition-all"
+            className="flex-1 py-2.5 text-sm text-gray-400 dark:text-gray-500 font-medium rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
           >
             {t('tutorial.pular')}
           </button>
           <button
             onClick={() => step < 3 ? setStep(step + 1) : handleFinish()}
-            className="flex-[2] py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-bold rounded-xl hover:from-brand-700 hover:to-emerald-600 transition-all shadow-lg shadow-brand-200/40"
+            className="flex-[2] py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 dark:from-brand-700 dark:to-brand-800 text-white text-sm font-bold rounded-xl hover:from-brand-700 hover:to-emerald-600 dark:hover:from-brand-800 dark:hover:to-brand-900 transition-all shadow-lg shadow-brand-200/40 dark:shadow-black/30"
           >
-            {step < 3 ? 'Próximo' : t('tutorial.cta')}
+            {step < 3 ? t('tutorial.proximo') : t('tutorial.cta')}
           </button>
         </div>
       </div>

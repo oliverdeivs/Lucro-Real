@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'LucroReal — Descubra quanto você realmente lucra por corrida',
   description:
     'Calculadora de lucro real para motoristas de aplicativo. Uber, 99, iFood. Descubra em segundos se vale a pena cada corrida.',
+  icons: { icon: '/icon-192.svg', apple: '/icon-192.svg' },
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/icon-192.svg" sizes="192x192" />
         <link rel="apple-touch-icon" href="/icon-192.svg" />
@@ -34,8 +35,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const theme = localStorage.getItem('lucro-real-theme')
-                if (theme === 'dark') document.documentElement.classList.add('dark')
+                const saved = localStorage.getItem('lucro-real-theme')
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+                if (saved === 'dark' || (!saved && prefersDark)) {
+                  document.documentElement.classList.add('dark')
+                }
               } catch(e) {}
             `,
           }}

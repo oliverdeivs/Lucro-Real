@@ -5,9 +5,11 @@ import { useTranslation } from '@/lib/i18n'
 import { formatCurrency } from '@/lib/calculate'
 import { CalcResult } from '@/lib/calculate'
 
+import { Locale } from '@/lib/i18n'
+
 interface Props {
   result: CalcResult
-  locale: 'pt' | 'es'
+  locale: Locale
 }
 
 export default function ShareButton({ result, locale }: Props) {
@@ -16,7 +18,7 @@ export default function ShareButton({ result, locale }: Props) {
 
   const profitStr = formatCurrency(result.profit, locale)
   const emoji = result.score === 'A' || result.score === 'B' ? '🚀' : result.score === 'F' ? '⚠️' : '📊'
-  const textKey = locale === 'pt' ? 'share.text_pt' : 'share.text_es'
+  const textKey = locale === 'pt' ? 'share.text_pt' : locale === 'es' ? 'share.text_es' : 'share.text_en'
 
   const shareText = t(textKey, {
     emoji,
@@ -52,7 +54,7 @@ export default function ShareButton({ result, locale }: Props) {
       </button>
       <button
         onClick={handleCopy}
-        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 text-sm font-semibold hover:bg-gray-50 transition-all"
+        className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />

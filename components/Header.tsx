@@ -4,17 +4,21 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { useTranslation, localeConfig, Locale, locales } from '@/lib/i18n'
-import { getTheme, setTheme as storeTheme } from '@/lib/storage'
+import { isPremium, setTheme as storeTheme } from '@/lib/storage'
 
 export default function Header() {
   const { t, locale, setLocale } = useTranslation()
   const path = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(() => {
+    if (typeof document === 'undefined') return false
+    return document.documentElement.classList.contains('dark')
+  })
+  const [premium, setPremium] = useState(false)
   const isHome = path === '/'
 
   useEffect(() => {
-    setDark(getTheme() === 'dark')
+    setPremium(isPremium())
   }, [])
 
   const toggleTheme = () => {
@@ -30,25 +34,26 @@ export default function Header() {
     setLocale(next)
   }
 
+  const nextLocale = locales[(locales.indexOf(locale) + 1) % locales.length] as Locale
   const cfg = localeConfig[locale]
 
   if (isHome) return null
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/80">
+    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-b border-gray-100/80 dark:border-gray-800/80">
       <div className="max-w-6xl mx-auto px-4 h-16 md:h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-brand-200/30 group-hover:shadow-brand-300/50 transition-shadow">
+        <Link href={premium ? '/calcular' : '/'} className="flex items-center gap-2.5 group">
+          <div className="w-9 h-9 bg-gradient-to-br from-brand-500 to-brand-700 dark:from-brand-600 dark:to-brand-800 rounded-xl flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-brand-200/30 dark:shadow-black/30 group-hover:shadow-brand-300/50 dark:group-hover:shadow-black/50 transition-shadow">
             LR
           </div>
-          <span className="font-bold text-lg text-gray-900">LucroReal</span>
+          <span className="font-bold text-lg text-gray-900 dark:text-white">LucroReal</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
           <Link
-            href="/"
+            href={premium ? '/calcular' : '/'}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-              path === '/' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+              (premium ? path === '/calcular' : path === '/') ? 'bg-brand-50 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
             }`}
           >
             {t('nav.calculadora')}
@@ -56,14 +61,14 @@ export default function Header() {
           <Link
             href="/dashboard"
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-              path === '/dashboard' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
+              path === '/dashboard' ? 'bg-brand-50 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
             }`}
           >
             {t('nav.dashboard')}
           </Link>
           <button
             onClick={toggleTheme}
-            className="ml-2 w-9 h-9 flex items-center justify-center text-gray-400 hover:text-warning border border-gray-200 rounded-xl hover:border-warning/30 transition-all"
+            className="ml-2 w-9 h-9 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-warning border border-gray-200 dark:border-gray-700 rounded-xl hover:border-warning/30 transition-all"
             title={dark ? t('theme.claro') : t('theme.escuro')}
           >
             {dark ? (
@@ -78,14 +83,14 @@ export default function Header() {
           </button>
           <button
             onClick={toggleLang}
-            className="ml-2 px-3 py-2 text-xs font-bold text-gray-400 hover:text-brand-600 border border-gray-200 rounded-xl hover:border-brand-300 transition-all uppercase tracking-wider"
-            title={`Switch to ${locale === 'pt' ? 'Español' : 'Português'}`}
+            className="ml-2 px-3 py-2 text-xs font-bold text-gray-400 dark:text-gray-500 hover:text-brand-600 dark:hover:text-brand-400 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-brand-300 transition-all uppercase tracking-wider"
+            title={nextLocale === 'pt' ? 'Português' : nextLocale === 'es' ? 'Español' : 'English'}
           >
-            {locale === 'pt' ? 'ES' : 'PT'}
+            {nextLocale.toUpperCase()}
           </button>
           <a
             href="https://pay.hotmart.com/Q105978279A"
-            className="ml-2 px-5 py-2 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl hover:from-brand-700 hover:to-emerald-600 transition-all shadow-lg shadow-brand-200/40"
+            className="ml-2 px-5 py-2 bg-gradient-to-r from-brand-600 to-emerald-500 dark:from-brand-700 dark:to-brand-800 text-white text-sm font-semibold rounded-xl hover:from-brand-700 hover:to-emerald-600 dark:hover:from-brand-800 dark:hover:to-brand-900 transition-all shadow-lg shadow-brand-200/40 dark:shadow-black/30"
           >
             {t('nav.comprar', { price: `${cfg.symbol}37` })}
           </a>
@@ -93,9 +98,9 @@ export default function Header() {
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors"
+          className="md:hidden w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -106,12 +111,12 @@ export default function Header() {
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white/95 backdrop-blur-xl px-4 py-4 space-y-2">
+        <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl px-4 py-4 space-y-2">
           <Link
-            href="/"
+            href={premium ? '/calcular' : '/'}
             onClick={() => setMobileOpen(false)}
             className={`block px-4 py-2.5 rounded-xl text-sm font-medium ${
-              path === '/' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:bg-gray-50'
+              (premium ? path === '/calcular' : path === '/') ? 'bg-brand-50 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
             }`}
           >
             {t('nav.calculadora')}
@@ -120,22 +125,22 @@ export default function Header() {
             href="/dashboard"
             onClick={() => setMobileOpen(false)}
             className={`block px-4 py-2.5 rounded-xl text-sm font-medium ${
-              path === '/dashboard' ? 'bg-brand-50 text-brand-700' : 'text-gray-500 hover:bg-gray-50'
+              path === '/dashboard' ? 'bg-brand-50 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
             }`}
           >
             {t('nav.dashboard')}
           </Link>
           <button
             onClick={() => { toggleTheme(); setMobileOpen(false) }}
-            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-xl text-center"
+            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl text-center"
           >
             {dark ? '☀️ ' + t('theme.claro') : '🌙 ' + t('theme.escuro')}
           </button>
           <button
             onClick={() => { toggleLang(); setMobileOpen(false) }}
-            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-xl text-center uppercase tracking-wider"
+            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl text-center uppercase tracking-wider"
           >
-            {locale === 'pt' ? '🇲🇽 Español' : '🇧🇷 Português'}
+            {locale === 'pt' ? '🇲🇽 Español' : locale === 'es' ? '🇺🇸 English' : '🇧🇷 Português'}
           </button>
           <a
             href="https://pay.hotmart.com/Q105978279A"
