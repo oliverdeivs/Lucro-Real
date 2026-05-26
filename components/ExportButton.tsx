@@ -1,8 +1,8 @@
 'use client'
 
-import { isPremium } from '@/lib/storage'
+import { isPremium, getRidesForExport } from '@/lib/storage'
 import { DaySummary } from '@/lib/types'
-import { formatCurrency } from '@/lib/calculate'
+import { formatCurrency, calculateProfit } from '@/lib/calculate'
 import { useTranslation, formatDate, localeConfig } from '@/lib/i18n'
 
 interface Props {
@@ -22,18 +22,61 @@ export default function ExportButton({ summaries }: Props) {
     generatePDF(summaries, locale)
   }
 
+  const handleCSV = () => {
+    if (!premium) {
+      window.open('https://pay.hotmart.com/Q105978279A', '_blank')
+      return
+    }
+    const rides = getRidesForExport()
+    if (rides.length === 0) return
+
+    const headers = [
+      t('export.csv_data'), t('export.csv_amount'),
+      t('export.csv_fuel'), t('export.csv_profit'),
+      t('export.csv_cost_km'), t('export.csv_status'),
+    ]
+    const rows = rides.map(r => [
+      new Date(r.date).toLocaleDateString(localeConfig[locale].locale),
+      formatCurrency(r.amount, locale),
+      formatCurrency(r.fuelCost, locale),
+      formatCurrency(r.profit, locale),
+      formatCurrency(r.costPerKm, locale),
+      r.status === 'profit' ? 'Lucro' : r.status === 'loss' ? 'Prejuízo' : 'Zero a zero',
+    ])
+
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `${t('export.csv_title')}-${new Date().toISOString().split('T')[0]}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   if (!hasData) return null
 
   return (
-    <button
-      onClick={handleExport}
-      className="w-full py-3 bg-gradient-to-r from-brand-600 to-brand-500 text-white font-semibold rounded-xl hover:from-brand-700 hover:to-brand-600 transition-all shadow-lg shadow-brand-200 flex items-center justify-center gap-2"
-    >
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-      {premium ? t('export.exportar') : t('export.desbloquear')}
-    </button>
+    <div className="flex items-center gap-2">
+      <button
+        onClick={handleCSV}
+        className="px-3 py-2 text-xs font-semibold text-brand-600 border border-brand-200 rounded-lg hover:bg-brand-50 transition-all flex items-center justify-center gap-1.5"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        {premium ? t('export.csv') : '🔒 CSV'}
+      </button>
+      <button
+        onClick={handleExport}
+        className="px-4 py-2 text-xs font-semibold bg-gradient-to-r from-brand-600 to-brand-500 text-white rounded-lg hover:from-brand-700 hover:to-brand-600 transition-all flex items-center justify-center gap-1.5"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        {premium ? t('export.exportar') : t('export.desbloquear')}
+      </button>
+    </div>
   )
 }
 
@@ -41,7 +84,7 @@ function generatePDF(summaries: DaySummary[], locale: 'pt' | 'es') {
   const t = (key: string, vars?: Record<string, string | number>) => {
     const dict: Record<string, Record<string, string>> = {
       pt: {
-        'export.relatorio': '📊 Relatório LucroReal',
+        'export.relatorio': 'Relatório LucroReal',
         'export.periodo': 'Período: {days} dia(s) — Gerado em {date}',
         'export.data': 'Data', 'export.corridas': 'Corridas',
         'export.faturamento': 'Faturamento', 'export.combustivel': 'Combustível',
@@ -50,7 +93,7 @@ function generatePDF(summaries: DaySummary[], locale: 'pt' | 'es') {
         'export.dias': 'Dias', 'export.rodape': 'Relatório gerado por LucroReal — lucroreal.app',
       },
       es: {
-        'export.relatorio': '📊 Informe LucroReal',
+        'export.relatorio': 'Informe LucroReal',
         'export.periodo': 'Período: {days} día(s) — Generado el {date}',
         'export.data': 'Fecha', 'export.corridas': 'Carreras',
         'export.faturamento': 'Facturación', 'export.combustivel': 'Combustible',

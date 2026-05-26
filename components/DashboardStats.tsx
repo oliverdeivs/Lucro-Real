@@ -33,25 +33,25 @@ export default function DashboardStats({ summaries }: Props) {
   const goalProgress = settings.dailyGoal > 0 ? Math.min(100, (todayProfit / settings.dailyGoal) * 100) : 0
 
   const stats = [
-    { key: 'corridas', value: totalRides.toString(), color: 'text-brand-300' },
+    { key: 'corridas', value: totalRides.toString(), color: 'text-brand-600' },
     { key: 'lucro_total', value: formatCurrency(totalProfit, locale), color: totalProfit >= 0 ? 'text-profit' : 'text-loss' },
-    { key: 'faturamento', value: formatCurrency(totalAmount, locale), color: 'text-white' },
+    { key: 'faturamento', value: formatCurrency(totalAmount, locale), color: 'text-gray-900' },
     { key: 'combustivel', value: formatCurrency(totalFuel, locale), color: 'text-warning' },
-    { key: 'km', value: `${totalKm.toFixed(1)} km`, color: 'text-brand-300' },
-    { key: 'media', value: formatCurrency(avgProfitPerRide, locale), color: 'text-white/70' },
+    { key: 'km', value: `${totalKm.toFixed(1)} km`, color: 'text-brand-600' },
+    { key: 'media', value: formatCurrency(avgProfitPerRide, locale), color: 'text-gray-900' },
   ]
 
   return (
     <div className="space-y-4">
       {settings.dailyGoal > 0 && todayProfit > 0 && (
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4">
+        <div className="bg-white rounded-2xl border border-gray-100 p-4 sm:p-5 shadow-sm">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-white/70">{t('settings.meta_dia')}</span>
-            <span className="text-sm font-bold text-white">
+            <span className="text-sm text-gray-500">{t('settings.meta_dia')}</span>
+            <span className="text-sm font-bold text-gray-900">
               {formatCurrency(todayProfit, locale)} / {formatCurrency(settings.dailyGoal, locale)}
             </span>
           </div>
-          <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
                 goalProgress >= 100 ? 'bg-profit' : 'bg-brand-500'
@@ -60,19 +60,24 @@ export default function DashboardStats({ summaries }: Props) {
             />
           </div>
           {goalProgress >= 100 && (
-            <p className="text-xs text-profit mt-1 font-medium">{t('dash.meta_atingida')}</p>
+            <p className="text-xs text-profit mt-1 font-medium flex items-center gap-1">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              {t('dash.meta_atingida')}
+            </p>
           )}
         </div>
       )}
 
       {totalFixedCost > 0 && (
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4">
+        <div className="bg-white rounded-2xl border border-gray-100 p-4 sm:p-5 shadow-sm">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-sm text-white/70">{t('dash.custo_fixo_periodo')}</span>
-            <span className="text-sm font-medium text-white/50">{formatCurrency(totalFixedCost, locale)}</span>
+            <span className="text-sm text-gray-500">{t('dash.custo_fixo_periodo')}</span>
+            <span className="text-sm font-bold text-gray-900">{formatCurrency(totalFixedCost, locale)}</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-white">{t('dash.lucro_real')}</span>
+            <span className="text-sm font-semibold text-gray-900">{t('dash.lucro_real')}</span>
             <span className={`text-lg font-black ${realProfit >= 0 ? 'text-profit' : 'text-loss'}`}>
               {realProfit >= 0 ? '+' : ''}{formatCurrency(realProfit, locale)}
             </span>
@@ -80,10 +85,10 @@ export default function DashboardStats({ summaries }: Props) {
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {stats.map(stat => (
-          <div key={stat.key} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4">
-            <div className="text-xs text-white/40 mb-1">{t(`stats.${stat.key}`)}</div>
+          <div key={stat.key} className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
+            <div className="text-xs text-gray-400 mb-1">{t(`stats.${stat.key}`)}</div>
             <div className={`text-lg font-bold ${stat.color}`}>{stat.value}</div>
           </div>
         ))}

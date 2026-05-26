@@ -26,7 +26,7 @@ export default function WeeklyChart({ summaries }: Props) {
   const cfg = localeConfig[locale]
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+    <div className="bg-white rounded-2xl border border-gray-100 p-4 sm:p-6 shadow-sm">
       <h3 className="font-bold text-gray-900 mb-4">{t('chart.titulo')}</h3>
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">

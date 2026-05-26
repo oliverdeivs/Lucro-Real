@@ -2,14 +2,27 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation, localeConfig, Locale, locales } from '@/lib/i18n'
+import { getTheme, setTheme as storeTheme } from '@/lib/storage'
 
 export default function Header() {
   const { t, locale, setLocale } = useTranslation()
   const path = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [dark, setDark] = useState(false)
   const isHome = path === '/'
+
+  useEffect(() => {
+    setDark(getTheme() === 'dark')
+  }, [])
+
+  const toggleTheme = () => {
+    const next = !dark
+    setDark(next)
+    storeTheme(next ? 'dark' : 'light')
+    document.documentElement.classList.toggle('dark', next)
+  }
 
   const toggleLang = () => {
     const idx = locales.indexOf(locale)
@@ -49,6 +62,21 @@ export default function Header() {
             {t('nav.dashboard')}
           </Link>
           <button
+            onClick={toggleTheme}
+            className="ml-2 w-9 h-9 flex items-center justify-center text-gray-400 hover:text-warning border border-gray-200 rounded-xl hover:border-warning/30 transition-all"
+            title={dark ? t('theme.claro') : t('theme.escuro')}
+          >
+            {dark ? (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            )}
+          </button>
+          <button
             onClick={toggleLang}
             className="ml-2 px-3 py-2 text-xs font-bold text-gray-400 hover:text-brand-600 border border-gray-200 rounded-xl hover:border-brand-300 transition-all uppercase tracking-wider"
             title={`Switch to ${locale === 'pt' ? 'Español' : 'Português'}`}
@@ -56,7 +84,7 @@ export default function Header() {
             {locale === 'pt' ? 'ES' : 'PT'}
           </button>
           <a
-            href="/#preco"
+            href="https://pay.hotmart.com/Q105978279A"
             className="ml-2 px-5 py-2 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl hover:from-brand-700 hover:to-emerald-600 transition-all shadow-lg shadow-brand-200/40"
           >
             {t('nav.comprar', { price: `${cfg.symbol}37` })}
@@ -98,13 +126,19 @@ export default function Header() {
             {t('nav.dashboard')}
           </Link>
           <button
+            onClick={() => { toggleTheme(); setMobileOpen(false) }}
+            className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-xl text-center"
+          >
+            {dark ? '☀️ ' + t('theme.claro') : '🌙 ' + t('theme.escuro')}
+          </button>
+          <button
             onClick={() => { toggleLang(); setMobileOpen(false) }}
             className="block w-full px-4 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-xl text-center uppercase tracking-wider"
           >
             {locale === 'pt' ? '🇲🇽 Español' : '🇧🇷 Português'}
           </button>
           <a
-            href="/#preco"
+            href="https://pay.hotmart.com/Q105978279A"
             onClick={() => setMobileOpen(false)}
             className="block px-4 py-2.5 bg-gradient-to-r from-brand-600 to-emerald-500 text-white text-sm font-semibold rounded-xl text-center"
           >

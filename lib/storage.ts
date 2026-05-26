@@ -1,12 +1,73 @@
 'use client'
 
-import { Ride, DaySummary, AppSettings } from './types'
+import { Ride, DaySummary, AppSettings, VehicleProfile } from './types'
 
 const STORAGE_KEY = 'lucro-real-rides'
 const PREMIUM_KEY = 'lucro-real-premium'
 const CALC_COUNT_KEY = 'lucro-real-calc-count'
 const SETTINGS_KEY = 'lucro-real-settings'
 export const MAX_FREE_CALCS = 4
+
+// Vehicle profiles
+const VEHICLES_KEY = 'lucro-real-vehicles'
+const ACTIVE_VEHICLE_KEY = 'lucro-real-active-vehicle'
+
+export function getVehicles(): VehicleProfile[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(VEHICLES_KEY)
+    return raw ? JSON.parse(raw) : []
+  } catch { return [] }
+}
+
+export function saveVehicle(v: VehicleProfile): void {
+  const list = getVehicles().filter(x => x.id !== v.id)
+  list.push(v)
+  localStorage.setItem(VEHICLES_KEY, JSON.stringify(list))
+}
+
+export function deleteVehicle(id: string): void {
+  const list = getVehicles().filter(x => x.id !== id)
+  localStorage.setItem(VEHICLES_KEY, JSON.stringify(list))
+}
+
+export function getActiveVehicleId(): string | null {
+  if (typeof window === 'undefined') return null
+  return localStorage.getItem(ACTIVE_VEHICLE_KEY)
+}
+
+export function setActiveVehicleId(id: string): void {
+  localStorage.setItem(ACTIVE_VEHICLE_KEY, id)
+}
+
+// Dark mode
+const THEME_KEY = 'lucro-real-theme'
+
+export function getTheme(): 'light' | 'dark' {
+  if (typeof window === 'undefined') return 'light'
+  return (localStorage.getItem(THEME_KEY) as 'light' | 'dark') || 'light'
+}
+
+export function setTheme(t: 'light' | 'dark'): void {
+  localStorage.setItem(THEME_KEY, t)
+}
+
+// Tutorial seen
+const TUTORIAL_KEY = 'lucro-real-tutorial'
+
+export function isTutorialSeen(): boolean {
+  if (typeof window === 'undefined') return true
+  return localStorage.getItem(TUTORIAL_KEY) === 'true'
+}
+
+export function markTutorialSeen(): void {
+  localStorage.setItem(TUTORIAL_KEY, 'true')
+}
+
+// CSV Export
+export function getRidesForExport(): Ride[] {
+  return getRides().reverse()
+}
 
 export const defaultSettings: AppSettings = {
   fuelPricePerLiter: 6.39,
@@ -68,15 +129,19 @@ export function getDaySummaries(): DaySummary[] {
     grouped[day].push(ride)
   })
 
-  return Object.entries(grouped).map(([date, dayRides]) => ({
-    date,
-    totalRides: dayRides.length,
-    totalAmount: dayRides.reduce((s, r) => s + r.amount, 0),
-    totalFuelCost: dayRides.reduce((s, r) => s + r.fuelCost, 0),
-    totalKm: dayRides.reduce((s, r) => s + r.kmDriven, 0),
-    totalProfit: dayRides.reduce((s, r) => s + r.profit, 0),
-    avgCostPerKm: dayRides.reduce((s, r) => s + r.costPerKm, 0) / dayRides.length,
-  }))
+  return Object.entries(grouped).map(([date, dayRides]) => {
+    const totalKm = dayRides.reduce((s, r) => s + r.kmDriven, 0)
+    const totalFuelCost = dayRides.reduce((s, r) => s + r.fuelCost, 0)
+    return {
+      date,
+      totalRides: dayRides.length,
+      totalAmount: dayRides.reduce((s, r) => s + r.amount, 0),
+      totalFuelCost,
+      totalKm,
+      totalProfit: dayRides.reduce((s, r) => s + r.profit, 0),
+      avgCostPerKm: totalKm > 0 ? totalFuelCost / totalKm : 0,
+    }
+  })
 }
 
 export function isPremium(): boolean {

@@ -1,4 +1,4 @@
-const CACHE = 'lucroreal-v1'
+const CACHE = 'lucroreal-v2'
 
 const PRECACHE_URLS = [
   '/',
@@ -11,6 +11,7 @@ const PRECACHE_URLS = [
 ]
 
 self.addEventListener('install', event => {
+  self.skipWaiting()
   event.waitUntil(
     caches.open(CACHE).then(cache => cache.addAll(PRECACHE_URLS))
   )
@@ -26,6 +27,7 @@ self.addEventListener('activate', event => {
 })
 
 self.addEventListener('fetch', event => {
+  if (event.request.url.includes('chrome-extension')) return
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached

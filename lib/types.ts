@@ -32,3 +32,21 @@ export interface AppSettings {
   dailyGoal: number
   weeklyGoal: number
 }
+
+export interface VehicleProfile {
+  id: string
+  name: string
+  type: 'car' | 'motorcycle'
+  monthlyMaintenance: number
+  monthlyInsurance: number
+  monthlyTax: number
+  daysWorkingPerMonth: number
+  carConsumptionKmPerLiter: number
+}
+
+export interface Tip {
+  id: string
+  icon: string
+  title: string
+  description: string
+}

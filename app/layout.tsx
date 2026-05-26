@@ -30,8 +30,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="icon" href="/icon-192.svg" sizes="192x192" />
         <link rel="apple-touch-icon" href="/icon-192.svg" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('lucro-real-theme')
+                if (theme === 'dark') document.documentElement.classList.add('dark')
+              } catch(e) {}
+            `,
+          }}
+        />
       </head>
-      <body className="bg-gray-50 text-gray-900 antialiased">
+      <body className="bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased">
         <LanguageProvider>
           <Header />
           <main className="min-h-screen">{children}</main>

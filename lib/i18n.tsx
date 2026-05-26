@@ -173,7 +173,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'result.msg_c': 'Margem razoável, mas pode melhorar.',
     'result.msg_d': 'Margem muito baixa. Quase no prejuízo.',
     'result.msg_f': 'Essa corrida deu prejuízo. Evite corridas assim!',
-    'result.saved': '✓ Corrida Salva',
+    'result.saved': 'Corrida Salva',
     'result.save': 'Salvar no Histórico',
 
     // DASHBOARD
@@ -184,7 +184,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'dash.cancelar': 'Cancelar',
     'dash.limpar_dados': 'Limpar Dados',
     'dash.historico': 'Histórico de Corridas',
-    'dash.meta_atingida': '🎯 Meta do dia atingida!',
+    'dash.meta_atingida': 'Meta do dia atingida!',
     'dash.custo_fixo_periodo': 'Custos fixos (período)',
     'dash.lucro_real': 'Lucro Real (líquido)',
 
@@ -211,7 +211,7 @@ const dict: Record<Locale, Record<string, string>> = {
     // EXPORT
     'export.exportar': 'Exportar Relatório em PDF',
     'export.desbloquear': '🔒 Desbloquear Exportação PDF',
-    'export.relatorio': '📊 Relatório LucroReal',
+    'export.relatorio': 'Relatório LucroReal',
     'export.periodo': 'Período: {days} dia(s) — Gerado em {date}',
     'export.data': 'Data',
     'export.corridas': 'Corridas',
@@ -258,7 +258,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'preview.pdf_info': 'Relatório gerado com 12 corridas • 3 dias de dados',
 
     // OBRIGADO
-    'obrigado.title': 'Compra Confirmada! 🎉',
+    'obrigado.title': 'Compra Confirmada!',
     'obrigado.desc': 'Seu acesso ao LucroReal foi liberado com sucesso. Você já pode usar todas as funcionalidades premium.',
     'obrigado.redirect': 'Redirecionando para seu dashboard em {countdown} segundos...',
     'obrigado.cta': 'Ir para o Dashboard Agora',
@@ -277,6 +277,13 @@ const dict: Record<Locale, Record<string, string>> = {
     'settings.custo_dia': 'Custo fixo por dia',
     'settings.custo_dia_desc': 'Baseado em {dias} dias trabalhados por mês',
     'settings.salvar': 'Salvar Configurações',
+    'settings.premium_restore': 'Restaurar Premium',
+    'settings.premium_restore_desc': 'Cole o código ou email que usou na hora da compra para ativar o Premium em qualquer navegador.',
+    'settings.premium_restore_btn': 'Ativar Premium',
+    'settings.premium_restore_placeholder': 'Cole seu token aqui',
+    'settings.premium_restore_success': 'Premium ativado com sucesso!',
+    'settings.premium_restore_error': 'Token inválido. Verifique e tente novamente.',
+    'settings.premium_restore_already': 'Premium já está ativo neste dispositivo.',
 
     // TERMOS DE USO
     'termos.title': 'Termos de Uso',
@@ -338,6 +345,81 @@ const dict: Record<Locale, Record<string, string>> = {
     'fale.enviado': 'Mensagem enviada com sucesso! Entraremos em contato em breve.',
     'fale.erro': 'Erro ao enviar. Tente novamente ou fale conosco pelo WhatsApp.',
     'fale.voltar': 'Voltar para Home',
+
+    // SHARE
+    'share.title': 'Compartilhar Resultado',
+    'share.copied': 'Copiado!',
+    'share.copy': 'Copiar',
+    'share.whatsapp': 'WhatsApp',
+    'share.text_pt': 'Acabei de calcular minha corrida no LucroReal!\n\n💰 {emoji} Lucro: {profit}\n📊 Nota: {score}\n📏 KM: {km} km\n⛽ Combustível: {fuel}\n\nBaixe também: lucroreal.app',
+    'share.text_es': 'Acabo de calcular mi carrera en LucroReal!\n\n💰 {emoji} Ganancia: {profit}\n📊 Nota: {score}\n📏 KM: {km} km\n⛽ Combustible: {fuel}\n\nDescárgalo: lucroreal.app',
+
+    // VEHICLES
+    'vehicle.titulo': 'Veículos',
+    'vehicle.add': 'Adicionar Veículo',
+    'vehicle.add_es': 'Agregar Vehículo',
+    'vehicle.nome': 'Nome do Veículo',
+    'vehicle.nome_ph': 'Ex: Carro, Moto, Uber',
+    'vehicle.tipo': 'Tipo',
+    'vehicle.carro': 'Carro',
+    'vehicle.moto': 'Moto',
+    'vehicle.ativo': 'Em uso',
+    'vehicle.usar': 'Usar este veículo',
+    'vehicle.deletar': 'Excluir',
+    'vehicle.sem_veiculos': 'Nenhum veículo cadastrado',
+    'vehicle.sem_veiculos_desc': 'Adicione um veículo com seus custos fixos para acompanhar por perfil.',
+
+    // TIPS
+    'tips.titulo': 'Dicas para você',
+    'tips.1.title': 'Evite horários de pico',
+    'tips.1.desc': 'Corridas em horários de trânsito intenso aumentam o consumo de combustível e reduzem sua margem.',
+    'tips.2.title': 'Priorize corridas curtas',
+    'tips.2.desc': 'Corridas curtas em regiões densas tendem a ter melhor lucro por km rodado.',
+    'tips.3.title': 'Mantenha o carro em dia',
+    'tips.3.desc': 'Um carro bem conservado consome menos combustível e evita gastos emergenciais.',
+    'tips.4.title': 'Use sua meta diária',
+    'tips.4.desc': 'Defina uma meta no dashboard e pare quando atingir. Mais trabalho não significa mais lucro.',
+    'tips.5.title': 'Analise seus scores F',
+    'tips.5.desc': 'Corridas com nota F estão te dando prejuízo. Identifique padrões para evitá-las.',
+    'tips.6.title': 'Compare veículos',
+    'tips.6.desc': 'Se tem carro e moto, cadastre os dois no app e veja qual é mais lucrativo.',
+
+    // TUTORIAL
+    'tutorial.titulo': 'Bem-vindo ao LucroReal!',
+    'tutorial.desc': 'Vamos te mostrar como funciona em 3 passos rápidos.',
+    'tutorial.step1_title': '1. Calcule sua corrida',
+    'tutorial.step1_desc': 'Informe o valor que recebeu, KM rodados e gasto com combustível. O resultado aparece na hora com nota de A a F.',
+    'tutorial.step2_title': '2. Salve e acompanhe',
+    'tutorial.step2_desc': 'Salve as corridas no histórico e veja gráficos de lucro no dashboard.',
+    'tutorial.step3_title': '3. Decida melhor',
+    'tutorial.step3_desc': 'Com os dados reais, você decide quais corridas valem a pena e aumenta seu lucro.',
+    'tutorial.cta': 'Começar!',
+    'tutorial.pular': 'Pular',
+
+    // DARK MODE
+    'theme.claro': 'Claro',
+    'theme.escuro': 'Escuro',
+
+    // MONTHLY
+    'month.todos': 'Todos',
+    'month.this_month': 'Este mês',
+    'month.last_month': 'Mês passado',
+    'month.select': 'Selecionar mês',
+    'month.comparativo': 'Comparativo com mês anterior',
+    'month.variacao': '{dir} {pct}% em relação ao mês anterior',
+    'month.positivo': 'aumento',
+    'month.negativo': 'queda',
+
+    // CSV
+    'export.csv': 'Exportar CSV',
+    'export.csv_title': 'lucroreal-corridas',
+    'export.csv_data': 'Data',
+    'export.csv_amount': 'Valor',
+    'export.csv_fuel': 'Combustível',
+    'export.csv_profit': 'Lucro',
+    'export.csv_cost_km': 'Custo/KM',
+    'export.csv_status': 'Status',
+    'export.csv_score': 'Nota',
   },
 
   es: {
@@ -487,7 +569,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'result.msg_c': 'Margen razonable, pero puede mejorar.',
     'result.msg_d': 'Margen muy bajo. Casi en pérdida.',
     'result.msg_f': '¡Esta carrera dio pérdida! Evita carreras así.',
-    'result.saved': '✓ Carrera Guardada',
+    'result.saved': 'Carrera Guardada',
     'result.save': 'Guardar en Historial',
 
     'dash.title': 'Dashboard',
@@ -497,7 +579,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'dash.cancelar': 'Cancelar',
     'dash.limpar_dados': 'Limpiar Datos',
     'dash.historico': 'Historial de Carreras',
-    'dash.meta_atingida': '🎯 ¡Meta del día alcanzada!',
+    'dash.meta_atingida': '¡Meta del día alcanzada!',
     'dash.custo_fixo_periodo': 'Costos fijos (período)',
     'dash.lucro_real': 'Ganancia Real (líquida)',
 
@@ -520,7 +602,7 @@ const dict: Record<Locale, Record<string, string>> = {
 
     'export.exportar': 'Exportar Informe en PDF',
     'export.desbloquear': '🔒 Desbloquear Exportación PDF',
-    'export.relatorio': '📊 Informe LucroReal',
+    'export.relatorio': 'Informe LucroReal',
     'export.periodo': 'Período: {days} día(s) — Generado el {date}',
     'export.data': 'Fecha',
     'export.corridas': 'Carreras',
@@ -533,7 +615,7 @@ const dict: Record<Locale, Record<string, string>> = {
     'export.dias': 'Días',
     'export.rodape': 'Informe generado por LucroReal — lucroreal.app',
 
-    'obrigado.title': '¡Compra Confirmada! 🎉',
+    'obrigado.title': '¡Compra Confirmada!',
     'obrigado.desc': 'Tu acceso a LucroReal ha sido liberado con éxito. Ya puedes usar todas las funciones premium.',
     'obrigado.redirect': 'Redirigiendo a tu dashboard en {countdown} segundos...',
     'obrigado.cta': 'Ir al Dashboard Ahora',
@@ -585,6 +667,13 @@ const dict: Record<Locale, Record<string, string>> = {
     'settings.custo_dia': 'Costo fijo por día',
     'settings.custo_dia_desc': 'Basado en {dias} días trabajados por mes',
     'settings.salvar': 'Guardar Configuraciones',
+    'settings.premium_restore': 'Restaurar Premium',
+    'settings.premium_restore_desc': 'Pega el código o email que usaste en la compra para activar Premium en cualquier navegador.',
+    'settings.premium_restore_btn': 'Activar Premium',
+    'settings.premium_restore_placeholder': 'Pega tu token aquí',
+    'settings.premium_restore_success': '¡Premium activado con éxito!',
+    'settings.premium_restore_error': 'Token inválido. Verifica e intenta de nuevo.',
+    'settings.premium_restore_already': 'Premium ya está activo en este dispositivo.',
 
     // TERMINOS DE USO
     'termos.title': 'Términos de Uso',
@@ -646,6 +735,81 @@ const dict: Record<Locale, Record<string, string>> = {
     'fale.enviado': '¡Mensaje enviado con éxito! Te contactaremos pronto.',
     'fale.erro': 'Error al enviar. Intenta de nuevo o contáctanos por WhatsApp.',
     'fale.voltar': 'Volver a Inicio',
+
+    // SHARE
+    'share.title': 'Compartir Resultado',
+    'share.copied': '¡Copiado!',
+    'share.copy': 'Copiar',
+    'share.whatsapp': 'WhatsApp',
+    'share.text_pt': 'Acabo de calcular mi carrera en LucroReal!\n\n💰 {emoji} Ganancia: {profit}\n📊 Nota: {score}\n📏 KM: {km} km\n⛽ Combustible: {fuel}\n\nDescárgalo: lucroreal.app',
+    'share.text_es': 'Acabo de calcular mi carrera en LucroReal!\n\n💰 {emoji} Ganancia: {profit}\n📊 Nota: {score}\n📏 KM: {km} km\n⛽ Combustible: {fuel}\n\nDescárgalo: lucroreal.app',
+
+    // VEHICLES
+    'vehicle.titulo': 'Vehículos',
+    'vehicle.add': 'Agregar Vehículo',
+    'vehicle.add_es': 'Agregar Vehículo',
+    'vehicle.nome': 'Nombre del Vehículo',
+    'vehicle.nome_ph': 'Ej: Auto, Moto, Uber',
+    'vehicle.tipo': 'Tipo',
+    'vehicle.carro': 'Auto',
+    'vehicle.moto': 'Moto',
+    'vehicle.ativo': 'En uso',
+    'vehicle.usar': 'Usar este vehículo',
+    'vehicle.deletar': 'Eliminar',
+    'vehicle.sem_veiculos': 'Ningún vehículo registrado',
+    'vehicle.sem_veiculos_desc': 'Agrega un vehículo con sus costos fijos para monitorear por perfil.',
+
+    // TIPS
+    'tips.titulo': 'Consejos para ti',
+    'tips.1.title': 'Evita horas pico',
+    'tips.1.desc': 'Las carreras en horas de tráfico intenso aumentan el consumo de combustible y reducen tu margen.',
+    'tips.2.title': 'Prioriza carreras cortas',
+    'tips.2.desc': 'Las carreras cortas en zonas densas tienden a tener mejor ganancia por km recorrido.',
+    'tips.3.title': 'Mantén tu auto al día',
+    'tips.3.desc': 'Un auto bien conservado consume menos combustible y evita gastos de emergencia.',
+    'tips.4.title': 'Usa tu meta diaria',
+    'tips.4.desc': 'Define una meta en el dashboard y para al alcanzarla. Más trabajo no significa más ganancia.',
+    'tips.5.title': 'Analiza tus scores F',
+    'tips.5.desc': 'Las carreras con nota F te están dando pérdida. Identifica patrones para evitarlas.',
+    'tips.6.title': 'Compara vehículos',
+    'tips.6.desc': 'Si tienes auto y moto, registra ambos en la app y ve cuál es más rentable.',
+
+    // TUTORIAL
+    'tutorial.titulo': '¡Bienvenido a LucroReal!',
+    'tutorial.desc': 'Te mostraremos cómo funciona en 3 pasos rápidos.',
+    'tutorial.step1_title': '1. Calcula tu carrera',
+    'tutorial.step1_desc': 'Informa el valor recibido, KM recorridos y gasto de combustible. El resultado aparece al instante con nota de A a F.',
+    'tutorial.step2_title': '2. Guarda y monitorea',
+    'tutorial.step2_desc': 'Guarda las carreras en el historial y ve gráficos de ganancia en el dashboard.',
+    'tutorial.step3_title': '3. Decide mejor',
+    'tutorial.step3_desc': 'Con los datos reales, decides qué carreras valen la pena y aumentas tu ganancia.',
+    'tutorial.cta': '¡Comenzar!',
+    'tutorial.pular': 'Saltar',
+
+    // DARK MODE
+    'theme.claro': 'Claro',
+    'theme.escuro': 'Oscuro',
+
+    // MONTHLY
+    'month.todos': 'Todos',
+    'month.this_month': 'Este mes',
+    'month.last_month': 'Mes pasado',
+    'month.select': 'Seleccionar mes',
+    'month.comparativo': 'Comparación con mes anterior',
+    'month.variacao': '{dir} {pct}% respecto al mes anterior',
+    'month.positivo': 'aumento',
+    'month.negativo': 'caída',
+
+    // CSV
+    'export.csv': 'Exportar CSV',
+    'export.csv_title': 'lucroreal-carreras',
+    'export.csv_data': 'Fecha',
+    'export.csv_amount': 'Valor',
+    'export.csv_fuel': 'Combustible',
+    'export.csv_profit': 'Ganancia',
+    'export.csv_cost_km': 'Costo/KM',
+    'export.csv_status': 'Estado',
+    'export.csv_score': 'Nota',
   },
 }
 

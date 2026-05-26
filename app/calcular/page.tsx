@@ -9,7 +9,8 @@ import DashboardStats from '@/components/DashboardStats'
 import RideHistory from '@/components/RideHistory'
 import SettingsPanel from '@/components/SettingsPanel'
 import { calculateProfit, CalcInput, CalcResult, formatCurrency } from '@/lib/calculate'
-import { saveRide, getRides, getDaySummaries, canCalculate, getCalcCount, incrementCalcCount, getRemainingFreeCalcs, isPremium } from '@/lib/storage'
+import { saveRide, getRides, getDaySummaries, canCalculate, getCalcCount, incrementCalcCount, getRemainingFreeCalcs, isPremium, isTutorialSeen } from '@/lib/storage'
+import Tutorial from '@/components/Tutorial'
 import { useTranslation, localeConfig } from '@/lib/i18n'
 import { Ride, DaySummary } from '@/lib/types'
 
@@ -23,9 +24,15 @@ export default function CalcularPage() {
   const [summaries, setSummaries] = useState<DaySummary[]>([])
   const [calcCount, setCalcCount] = useState(0)
   const [showSettings, setShowSettings] = useState(false)
+  const [showTutorial, setShowTutorial] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => { setMounted(true) }, [])
+  useEffect(() => {
+    setMounted(true)
+    if (!isTutorialSeen()) {
+      setShowTutorial(true)
+    }
+  }, [])
 
   const loadData = useCallback(() => {
     setRides(getRides())
@@ -35,6 +42,20 @@ export default function CalcularPage() {
 
   useEffect(() => {
     loadData()
+
+    const onFocus = () => loadData()
+    const onVisibility = () => { if (!document.hidden) loadData() }
+    const onPageShow = (e: PageTransitionEvent) => { if (e.persisted) loadData() }
+
+    window.addEventListener('focus', onFocus)
+    document.addEventListener('visibilitychange', onVisibility)
+    window.addEventListener('pageshow', onPageShow)
+
+    return () => {
+      window.removeEventListener('focus', onFocus)
+      document.removeEventListener('visibilitychange', onVisibility)
+      window.removeEventListener('pageshow', onPageShow)
+    }
   }, [loadData])
 
   const handleCalculate = (input: CalcInput) => {
@@ -79,7 +100,7 @@ export default function CalcularPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
             <a href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-brand-600 transition-colors mb-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,19 +108,20 @@ export default function CalcularPage() {
               </svg>
               {t('hero.como')}
             </a>
-            <h1 className="text-3xl font-black text-gray-900">
+            <h1 className="text-2xl sm:text-3xl font-black text-gray-900">
               {t('page.calc_title1')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-emerald-500">{t('page.calc_title2')}</span> {t('page.calc_title3')}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-end sm:self-auto">
             <button
               onClick={() => setShowSettings(true)}
-              className="px-3 py-2 text-xs text-gray-400 hover:text-brand-600 border border-gray-200 rounded-lg hover:border-brand-300 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-500 hover:text-brand-600 border border-gray-200 rounded-lg hover:border-brand-300 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
+              {t('settings.titulo')}
             </button>
             <div className={`px-4 py-2 rounded-xl text-sm font-bold border transition-colors ${
               !mounted ? 'bg-brand-50 text-brand-600 border-brand-100' :
@@ -155,7 +177,7 @@ export default function CalcularPage() {
                   {t('calc.limit_desc', { max: 4 })}
                 </p>
                 <a
-                  href="#preco"
+                  href="https://pay.hotmart.com/Q105978279A"
                   className="inline-block px-8 py-3 bg-white text-brand-700 font-bold rounded-xl hover:bg-gray-100 transition-all shadow-lg"
                 >
                   {t('calc.limit_cta')}
@@ -167,7 +189,11 @@ export default function CalcularPage() {
           <div className="lg:col-span-3 space-y-4">
             {summaries.length === 0 && !result ? (
               <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
-                <div className="text-5xl mb-4">📊</div>
+                <div className="mb-4">
+                  <svg className="w-12 h-12 mx-auto text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                  </svg>
+                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{t('calc.preview_title')}</h3>
                 <p className="text-sm text-gray-400 max-w-sm mx-auto leading-relaxed">
                   {t('calc.preview_desc')}
@@ -216,6 +242,7 @@ export default function CalcularPage() {
         </div>
       </div>
 
+      {showTutorial && <Tutorial onClose={() => setShowTutorial(false)} />}
       {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
     </div>
   )

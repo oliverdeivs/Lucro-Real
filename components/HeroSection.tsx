@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslation, Locale, locales } from '@/lib/i18n'
+import PhonePreview from './PhonePreview'
 
 export default function HeroSection() {
   const { t, locale, setLocale } = useTranslation()
@@ -39,7 +40,7 @@ export default function HeroSection() {
               {locale === 'pt' ? 'ES' : 'PT'}
             </button>
             <a
-              href="#preco"
+              href="https://pay.hotmart.com/Q105978279A"
               className="px-5 py-2.5 bg-white text-brand-900 text-sm font-semibold rounded-xl hover:bg-white/90 transition-all shadow-lg shadow-black/10"
             >
               {t('hero.comprar_btn')}
@@ -103,14 +104,7 @@ export default function HeroSection() {
           </div>
 
           <div className="flex justify-center items-center animate-fadeInUp delay-200 pt-8 lg:pt-24">
-            <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-md">
-              <div className="absolute -inset-6 lg:-inset-10 bg-white/10 rounded-full blur-3xl" />
-              <img
-                src="/public.png.png"
-                alt="LucroReal App"
-                className="relative w-full h-auto rounded-2xl lg:rounded-3xl shadow-2xl shadow-black/30"
-              />
-            </div>
+            <PhonePreview />
           </div>
         </div>
       </div>

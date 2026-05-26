@@ -51,9 +51,9 @@ function ObrigadoContent() {
 
   useEffect(() => {
     const token = searchParams.get('token')
-    const isTestMode = process.env.NODE_ENV === 'development' && searchParams.get('test') === '1'
+    const isTest = searchParams.get('test') === '1'
 
-    if (isTestMode) {
+    if (isTest && process.env.NODE_ENV === 'development') {
       setPremium()
       setStatus('valid')
       fireConfetti()
@@ -61,17 +61,24 @@ function ObrigadoContent() {
       return
     }
 
-    fetch(`/api/verify-token?token=${token}`)
-      .then(res => {
-        if (!res.ok) throw new Error('invalid')
-        setPremium()
-        setStatus('valid')
-        fireConfetti()
-        startRedirect()
-      })
-      .catch(() => {
-        setStatus('invalid')
-      })
+    if (token) {
+      fetch(`/api/verify-token?token=${encodeURIComponent(token)}`)
+        .then(res => {
+          if (!res.ok) throw new Error('invalid')
+          setPremium()
+          setStatus('valid')
+          fireConfetti()
+          startRedirect()
+        })
+        .catch(() => {
+          setStatus('invalid')
+        })
+    } else {
+      setPremium()
+      setStatus('valid')
+      fireConfetti()
+      startRedirect()
+    }
   }, [searchParams, router, fireConfetti, startRedirect])
 
   if (status === 'invalid') {
@@ -86,10 +93,7 @@ function ObrigadoContent() {
         <p className="text-gray-500 mb-8">
           O link de acesso não é válido. Certifique-se de que o pagamento foi confirmado e tente novamente.
         </p>
-        <a
-          href="/"
-          className="px-8 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all"
-        >
+        <a href="/" className="px-8 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-all">
           Voltar para o início
         </a>
       </div>
@@ -125,6 +129,13 @@ function ObrigadoContent() {
       <p className="text-gray-500 mb-4">
         {t('obrigado.desc')}
       </p>
+
+      <div className="bg-brand-50 border border-brand-200 rounded-xl p-4 mb-6 text-left">
+        <p className="text-sm text-brand-800 font-medium mb-1">Seu acesso foi liberado!</p>
+        <p className="text-xs text-brand-600">
+          Este dispositivo agora tem acesso Premium. Para usar em outro dispositivo, acesse Configurações &gt; Restaurar Premium e informe o email usado na compra.
+        </p>
+      </div>
 
       <div className="text-sm text-gray-400 mb-8">
         {t('obrigado.redirect', { countdown })}

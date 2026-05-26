@@ -2,6 +2,7 @@
 
 import { CalcResult, formatCurrency } from '@/lib/calculate'
 import { useTranslation } from '@/lib/i18n'
+import ShareButton from './ShareButton'
 
 interface Props {
   result: CalcResult
@@ -91,9 +92,18 @@ export default function ResultCard({ result, onSave, saved }: Props) {
           disabled={saved}
           className="w-full py-2.5 rounded-xl border-2 border-brand-500 text-brand-600 font-semibold hover:bg-brand-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
-          {saved ? t('result.saved') : t('result.save')}
+          {saved ? (
+            <span className="flex items-center justify-center gap-1.5">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              {t('result.saved')}
+            </span>
+          ) : t('result.save')}
         </button>
       )}
+
+      {onSave && <ShareButton result={result} locale={locale} />}
     </div>
   )
 }

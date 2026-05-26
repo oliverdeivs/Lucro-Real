@@ -18,7 +18,11 @@ export default function RideHistory({ rides, onDelete }: Props) {
   if (rides.length === 0) {
     return (
       <div className="text-center py-12 text-gray-400">
-        <div className="text-4xl mb-3">📋</div>
+        <div className="mb-3">
+          <svg className="w-10 h-10 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6M9 16h6m-6-8h3M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" />
+          </svg>
+        </div>
         <div className="font-medium">{t('history.empty_title')}</div>
         <div className="text-sm">{t('history.empty_desc')}</div>
       </div>
@@ -74,12 +78,12 @@ export default function RideHistory({ rides, onDelete }: Props) {
                 >
                   {t('history.sim')}
                 </button>
-                <button
-                  onClick={() => setShowConfirm(null)}
-                  className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors"
-                >
-                  {t('history.nao')}
-                </button>
+                  <button
+                    onClick={() => setShowConfirm(null)}
+                    className="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-lg hover:bg-gray-300 transition-colors"
+                  >
+                    {t('history.nao')}
+                  </button>
               </div>
             ) : (
               <button
